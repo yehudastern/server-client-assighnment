@@ -67,6 +67,7 @@ void server(string fileName, int port) {
     close(sock);
     }
 }
+
 void checkFile(char* file) {
     if(access(file,F_OK) == -1){
         cout << "error file name!" <<endl;
