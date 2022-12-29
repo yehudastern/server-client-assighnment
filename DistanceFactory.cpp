@@ -16,7 +16,7 @@ DistanceFactory::DistanceFactory(const std::string& distanceName) {
         m_distance = new minkowskiDistance();
         // if the string is wrong exits
     else {
-        std::cout << "please enter a valid distance methode";
+        std::cout << "ivnalid input!";
         exit(1);
     }
 }// using the distance methode of the embedded class
@@ -24,6 +24,5 @@ double DistanceFactory::getDistance(vector<double> v1, vector<double> v2) {
     return m_distance->getDistance(v1, v2);
 } // destructor
 DistanceFactory::~DistanceFactory() {
-    cout << "deleting allocated space";
     delete m_distance;
 }
