@@ -12,14 +12,37 @@ using namespace std;
 GetInput::GetInput(string file, string data){
     m_flag = 1;
     m_inputVec = getClsVecs(file);
-    
-}
-GetInput::~GetInput() {
 }
 
-void GetInput::testDis(string disType) {
+GetInput::~GetInput() {
+    delete m_distance;
+}
+
+int GetInput::getflag(){
+    return m_flag;
+}
+vector<pair<vector<double>,string>> GetInput::getInputVec(){
+    return m_inputVec;
+}
+
+IDistance* GetInput::getDistance() {
+    return m_distance;
+}
+
+int GetInput::getK() {
+    return m_k;
+}
+
+vector<double> GetInput::getVec() {
+    return m_vec;
+}
+
+
+void GetInput::initDis(string disType) {
     if ( !((disType == "AUC") || (disType == "MAN") || (disType == "CHB")|| (disType == "CAN" )|| (disType == "MIN"))) {
         m_flag =0;
+    } else{
+        m_distance = new DistanceFactory(disType);
     }
 }
 void GetInput::takeVecKAndDis(string info) {
@@ -54,16 +77,17 @@ void GetInput::takeVecKAndDis(string info) {
                 k = y;
                 stay = 0;
         }
-        if (!k.empty() && !disType.empty()) {
+    }
+    if (!k.empty() && !disType.empty()) {
             testK(k);
-            testDis(disType);
+            initDis(disType);
             m_k = stoi(k);
             m_distance = new DistanceFactory(disType);
              
-        } else {
-            m_flag = 0;
-        }
+    } else {
+        m_flag = 0;
     }
+    m_vec = vec;
 }
 
 
@@ -136,36 +160,5 @@ void GetInput::testK(string num){
     }
     if(m_inputVec.size() < stoi(num)){
         m_flag = 0;
-    }
-}
-
-/*
-The program takes in three command line arguments:
- a value for k (the number of nearest neighbors to consider), a file containing the labeled training data,
- and a string indicating the distance metric to use.
-*/
-int main(int argc, char** argv) {
-    // checks the number of command line arguments and validates the k value.
-    if (argc != 4){
-        cout << "insert currect input!" <<endl;
-    }
-    testK(argv[1]);
-    int k = atoi(argv[1]);
-    // reads the labeled training data from the input file
-    vector<pair<vector<double>, string>> vecs = getClsVecs(argv[2]);
-    // creates a KNN classifier using the specified distance metric.
-    IDistance* ds = new DistanceFactory(argv[3]);
-    Knn myKnn = Knn(vecs, k, ds);
-    //enters an infinite loop to continuously read input vectors from the user,
-    // classify them using the KNN classifier,
-    // and print the predicted class label to the console.
-    while (true) {
-        int failed = 0;
-        if (failed) {
-            delete ds;
-            exit(1);
-        }
-        string tag = myKnn.getTag(inputVec);
-        cout << tag << endl;
     }
 }

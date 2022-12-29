@@ -10,11 +10,12 @@
 class GetInput{
 private:
     vector<pair<vector<double>,string>> m_inputVec;
+    vector<double> m_vec;
     IDistance* m_distance;
     int m_k;
     int m_flag;
     void testK(string num);
-    void testDis(string disType);
+    void initDis(string disType);
     vector<pair<vector<double>, string>> getClsVecs(string fileName);
     void takeVecKAndDis(string info);
 public:
@@ -23,6 +24,7 @@ public:
     vector<pair<vector<double>,string>> getInputVec();
     IDistance* getDistance();
     int getK();
+    vector<double> getVec();
     ~GetInput();
 };
 

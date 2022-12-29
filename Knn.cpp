@@ -12,8 +12,13 @@ Knn::Knn(vector<pair<vector<double>,string>> vector, int k, IDistance* distance)
     m_inputVec = vector;
     //k for labeled
     m_k = k;
+    m_flag = 1;
     // for calculate distance between the vectors.
     m_distance = distance;
+}
+
+int Knn::getFlag() {
+    return m_flag;
 }
 
 /*
@@ -25,10 +30,8 @@ vector<pair<double,string>> Knn::getDisAndStr(const vector<double>& input){
     vector<pair<double,string>> vec;
     for(const auto& vector: m_inputVec) {
         if (vector.first.size() != input.size()) {
-            cout << vector.first.size() << " " <<vector.second.size() << endl;
-            cout << "wrong sized vector";
-            delete m_distance;
-            exit(1);
+            m_flag = 0;
+            break; 
         }
         vec.emplace_back(m_distance->getDistance(vector.first, input),vector.second);
     }
@@ -71,6 +74,9 @@ the getTag function uses the previously defined member functions
 */
 string Knn::getTag(const vector<double>& input) {
     vector<pair<double,string>> vec = getDisAndStr(input);
+    if (m_flag == 0){
+        return "-1";
+    }
     vector<double> vec2 = getNoStrDis(vec);
     double k = select(vec2, m_k);
     map<string, int> tagMap = createMap(k, vec);
