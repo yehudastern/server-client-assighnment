@@ -29,25 +29,30 @@ int main(int argc, char *argv[]) {
     }
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
-    int client_sock = accept(sock, (struct sockaddr*) &client_sin, &addr_len);
-    if (client_sock < 0) {
-        perror("error accepting client");
-        exit(1);
-    }
-    char buffer[4096];
-    int expected_data_len = sizeof(buffer);
-    int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-    if (read_bytes == 0) {
-        cout << "close connection, no give input.." << endl;
-    } else if (read_bytes < 0) {
-        cout << "error of recv!" << endl;
-        exit(1);
-    } else {
-        cout << buffer << endl;
-    }
-    int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-    if (sent_bytes < 0 ) {
-    perror("error sending to client");
+    while (true) {
+        int client_sock = accept(sock, (struct sockaddr*) &client_sin, &addr_len);
+        if (client_sock < 0) {
+            perror("error accepting client");
+            exit(1);
+        }
+        while (true){
+        char buffer[4096];
+        int expected_data_len = sizeof(buffer);
+        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+
+        if (read_bytes == 0) {
+            cout << "close connection" << endl;
+        } else if (read_bytes < 0) {
+            cout << "error of recv!" << endl;
+            exit(1);
+        } else {
+            cout << buffer << endl;
+        }
+        int sent_bytes = send(client_sock, buffer, read_bytes, 0);
+        if (sent_bytes < 0 ) {
+        perror("error sending to client");
+        }
+        }
     }
     close(sock);
     return 0;
