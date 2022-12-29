@@ -16,7 +16,7 @@ DistanceFactory::DistanceFactory(const std::string& distanceName) {
         m_distance = new minkowskiDistance();
         // if the string is wrong exits
     else {
-        std::cout << "ivnalid input!";
+        std::cout << "distnace name error, change it" << std::endl;
         exit(1);
     }
 }// using the distance methode of the embedded class

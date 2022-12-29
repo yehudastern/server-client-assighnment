@@ -5,12 +5,11 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include "GetInput.hpp"
 
 using namespace std;
-
-int main(int argc, char *argv[]) {
-    //const int server_port = atoi(argv[2]);
-    const int server_port = 27445;
+void server(string fileName, int port){
+    const int server_port = port;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("error creating socket");
@@ -36,25 +35,32 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
         while (true){
-        char buffer[4096];
-        int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-
-        if (read_bytes == 0) {
-            cout << "close connection" << endl;
-        } else if (read_bytes < 0) {
-            cout << "error of recv!" << endl;
-            exit(1);
-        } else {
-            cout << buffer << endl;
-        }
-        int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-        if (sent_bytes < 0 ) {
-        perror("error sending to client");
-        }
+            char buffer[4096];
+            int expected_data_len = sizeof(buffer);
+            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+            if (read_bytes == 0) {
+                cout << "close connection" << endl;
+                break;
+            } else if (read_bytes < 0) {
+                cout << "error of recv!" << endl;
+                exit(1);
+            } else {
+                GetInput input = GetInput(fileName, buffer);
+                cout << buffer << endl;
+            }
+            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
+            if (sent_bytes < 0 ) {
+            perror("error sending to client");
+            }
         }
     }
     close(sock);
+}
+
+int main(int argc, char *argv[]) {
+    void server();
+    string fileName = argv[1];
+    int port = atoi(argv[2]);
     return 0;
 }
 

@@ -8,11 +8,6 @@
  based on the labels of the nearest data points in the labeled dataset.
 */
 Knn::Knn(vector<pair<vector<double>,string>> vector, int k, IDistance* distance) {
-    if (k > vector.size()){
-        cout << "k is too big!" << endl;
-        delete m_distance;
-        exit(1);
-    }
     //our data
     m_inputVec = vector;
     //k for labeled
