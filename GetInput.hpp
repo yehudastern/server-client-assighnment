@@ -14,13 +14,13 @@ private:
     IDistance* m_distance;
     int m_k;
     int m_flag;
-    void testK(string num);
+    void initK(string num);
     void initDis(string disType);
     vector<pair<vector<double>, string>> getClsVecs(string fileName);
     void takeVecKAndDis(string info);
 public:
     GetInput(string file, string data);
-    int getflag();
+    int getflag() const;
     vector<pair<vector<double>,string>> getInputVec();
     IDistance* getDistance();
     int getK();
