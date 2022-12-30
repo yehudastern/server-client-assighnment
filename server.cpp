@@ -55,8 +55,13 @@ void server(string fileName, int port) {
                     if (myKnn.getFlag() == 0) {
                         tag = "invalid input";
                     } 
-                }  else {
-                        tag = "invalid input";
+<<<<<<< HEAD
+                } else {
+                    tag = "invalid input";
+=======
+                } else {
+                    tag = "invalid input";
+>>>>>>> c5186992209a126f7f96b30998e9df20cb13d14a
                 }
             }
             int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
