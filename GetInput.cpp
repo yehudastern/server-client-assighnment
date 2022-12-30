@@ -163,5 +163,5 @@ void GetInput::initK(string num) {
     if(m_inputVec.size() < stoi(num) && stoi(num) > 0){
         m_flag = 0;
     }
-    m_k = stoi(k);
+    m_k = stoi(num);
 }
