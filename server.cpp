@@ -54,9 +54,9 @@ void server(string fileName, int port) {
                     tag = myKnn.getTag(input.getVec());
                     if (myKnn.getFlag() == 0) {
                         tag = "invalid input";
-                    } else {
-                        tag = "invalid input";
-                    }
+                    } 
+                } else {
+                    tag = "invalid input";
                 }
                 int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
                 if (sent_bytes < 0 ) {
