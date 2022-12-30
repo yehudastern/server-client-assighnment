@@ -45,6 +45,7 @@ void GetInput::initDis(string disType) {
         m_distance = new DistanceFactory(disType);
     }
 }
+
 void GetInput::takeVecKAndDis(string info) {
     string line;
     // making a string stream in order to saparate the spaces
@@ -82,15 +83,11 @@ void GetInput::takeVecKAndDis(string info) {
             testK(k);
             initDis(disType);
             m_k = stoi(k);
-            m_distance = new DistanceFactory(disType);
-             
     } else {
         m_flag = 0;
     }
     m_vec = vec;
 }
-
-
 
 vector<pair<vector<double>, string>> GetInput::getClsVecs(string fileName){
     vector<pair<vector<double>, string>> vecs;
@@ -152,7 +149,7 @@ vector<pair<vector<double>, string>> GetInput::getClsVecs(string fileName){
  If the string contains any non-digit characters,
  the function prints an error message and exits the program.
 */
-void GetInput::testK(string num){
+void GetInput::testK(string num) {
     for (char c : num) {
         if(!isdigit(c)){
             m_flag = 0;

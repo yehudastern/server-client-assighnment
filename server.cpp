@@ -54,17 +54,17 @@ void server(string fileName, int port) {
                     tag = myKnn.getTag(input.getVec());
                     if (myKnn.getFlag() == 0) {
                         tag = "invalid input";
-                    } else {
+                    } 
+                }  else {
                         tag = "invalid input";
-                    }
-                }
-                int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
-                if (sent_bytes < 0 ) {
-                    perror("error sending to client");
                 }
             }
+            int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
+            if (sent_bytes < 0 ) {
+                    perror("error sending to client");
+            }
         }
-    close(sock);
+        close(sock);
     }
 }
 
@@ -72,15 +72,13 @@ void checkFile(char* file) {
     if(access(file,F_OK) == -1){
         cout << "error file name!" <<endl;
         exit(1);
-    }
+    }   
 }
 
 int main(int argc, char *argv[]) {
     checkFile(argv[1]);
-    void server();
     string fileName = argv[1];
     int port = atoi(argv[2]);
+    server(fileName, port);
     return 0;
 }
-
-
