@@ -5,6 +5,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <fstream>
 #include "GetInput.hpp"
 #include "Knn.hpp"
 #include "DistanceFactory.hpp"
@@ -49,6 +50,19 @@ void server(string fileName, int port) {
                 break;
             } else {
                 cout << buffer << endl;
+                GetInput* input = new GetInput(fileName, buffer);
+                cout << input->getflag() << endl;
+                string tag;
+                if (input->getflag() == 0) {
+                    Knn myKnn = Knn(input->getInputVec(), input->getK(), input->getDistance());
+                    tag = myKnn.getTag(input->getVec());
+                    if (myKnn.getFlag() == 0) {
+                        tag = "invalid input";
+                    }
+                } else {
+                    tag = "invalid input";
+                }
+                delete input;
             } int sent_bytes = send(client_sock, buffer, read_bytes, 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
@@ -58,49 +72,34 @@ void server(string fileName, int port) {
     }
 }
 
-void checkFile(char* file) {
-    if(access(file,F_OK) == -1){
-        cout << "error file name!" <<endl;
+
+void checkFile(char* fileName) {
+    ifstream file(fileName);
+    if (file.is_open()) {
+        file.close();
+        return;
+    } else {
+        // exit the program
+        cout << "wrong file name!" << endl;
         exit(1);
-    }   
+    }
 }
 
 int main(int argc, char *argv[]) {
-    cout << "filename: " << argv[1] << endl;
-    checkFile(argv[1]);
     string fileName = argv[1];
+    //cout << "file name: " << fileName << " port: " << argv[2] << endl;
+    checkFile(argv[1]);
     int port = atoi(argv[2]);
-    cout << "ip address: " << argv[2] << endl;
     server(fileName, port);
+//    GetInput input = GetInput(fileName, "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 MAN 0");
+//    cout << input.getflag() << endl;
     return 0;
 }
-//if (listen(sock, 5) < 0) {
-//perror("error listening to a socket");
-//}
-//struct sockaddr_in client_sin;
-//unsigned int addr_len = sizeof(client_sin);
-//while (true) {
-//int client_sock = accept(sock, (struct sockaddr*) &client_sin, &addr_len);
-//if (client_sock < 0) {
-//perror("error accepting client");
-//exit(1);
-//}
-//while (true) {
-//char buffer[4096];
-//string tag;
-//int expected_data_len = sizeof(buffer);
-//int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-//if (read_bytes == 0) {
-//cout << "close connection" << endl;
-//break;
-//} else if (read_bytes < 0) {
-//cout << "error of recv!" << endl;
-//exit(1);
-//} else {
+
 //cout << buffer << endl;
 ////GetInput input = GetInput(fileName, buffer);
 //
-////                if (input.getflag() == 0 ) {
+////                if (input.getflag() == 0) {
 ////                    Knn myKnn = Knn(input.getInputVec(), input.getK(), input.getDistance());
 ////                    tag = myKnn.getTag(input.getVec());
 ////                    if (myKnn.getFlag() == 0) {
@@ -111,8 +110,3 @@ int main(int argc, char *argv[]) {
 ////                }
 //}
 //int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
-//if (sent_bytes < 0 ) {
-//perror("error sending to client");
-//}
-//}
-//close(sock);

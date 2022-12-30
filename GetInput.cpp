@@ -4,7 +4,6 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
-#include "Knn.hpp"
 #include "DistanceFactory.hpp"
 #include "GetInput.hpp"
 using namespace std;
@@ -12,13 +11,14 @@ using namespace std;
 GetInput::GetInput(string file, string data){
     m_flag = 1;
     m_inputVec = getClsVecs(file);
+    takeVecKAndDis(data);
 }
 
 GetInput::~GetInput() {
     delete m_distance;
 }
 
-int GetInput::getflag(){
+int GetInput::getflag() const{
     return m_flag;
 }
 vector<pair<vector<double>,string>> GetInput::getInputVec(){
@@ -47,7 +47,7 @@ void GetInput::initDis(string disType) {
 }
 
 void GetInput::takeVecKAndDis(string info) {
-    string line;
+    string line = info;
     // making a string stream in order to saparate the spaces
     stringstream stream(line);
     // a vector of doubles
@@ -58,10 +58,9 @@ void GetInput::takeVecKAndDis(string info) {
     string k;
     // a double to put the numbers in
     double x;
-    int stay = 1;
     int moreDoubles = 1;
     // while we have more words to put in y string
-    while (stay && stream >> y) {
+    while (stream >> y) {
         // we use an istring stream to convert the word to double
         istringstream iss(y);
         // if the converstion was made we put the double in the vector
@@ -70,22 +69,28 @@ void GetInput::takeVecKAndDis(string info) {
         }
         // else we have a string and we break
         else {
-        // adds a space if theres more strings in the end
+            moreDoubles = 0;
+            // adds a space if theres more strings in the end
             if (!stream.eof())
                 disType = y;
             // else adds with no space
-            else
+            else {
                 k = y;
-                stay = 0;
+                break;
+            }
         }
     }
+    cout << "distance: " << disType << " k: " << k << endl;
     if (!k.empty() && !disType.empty()) {
-            testK(k);
-            initDis(disType);
-            m_k = stoi(k);
+        initK(k);
+        initDis(disType);
     } else {
         m_flag = 0;
     }
+    for (double d: vec) {
+        cout << d << " ";
+    }
+    cout << endl;
     m_vec = vec;
 }
 
@@ -149,13 +154,14 @@ vector<pair<vector<double>, string>> GetInput::getClsVecs(string fileName){
  If the string contains any non-digit characters,
  the function prints an error message and exits the program.
 */
-void GetInput::testK(string num) {
+void GetInput::initK(string num) {
     for (char c : num) {
         if(!isdigit(c)){
             m_flag = 0;
         }
     }
-    if(m_inputVec.size() < stoi(num)){
+    if(m_inputVec.size() < stoi(num) && stoi(num) > 0){
         m_flag = 0;
     }
+    m_k = stoi(k);
 }
