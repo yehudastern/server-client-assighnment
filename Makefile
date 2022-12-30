@@ -1,7 +1,7 @@
 #set up the compiler and necessary compilation flags.
 CC = g++ -std=c++11
 
-OBJS = DistanceFactory.o distances.o Knn.o select.o IDistance.o
+OBJS = DistanceFactory.o distances.o Knn.o select.o IDistance.o GetInput.o
 
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
@@ -13,14 +13,14 @@ else
 endif
 
 #linking command
-all: $(OBJS) getVector.o
-	$(CC) $(OBJS) getVector.o
+all: $(OBJS) server.o
+	$(CC) $(OBJS) server.o
 
 %.o: %.cpp %.hpp
 	$(CC) -c $< -o $@
 
-getVector.o: getVector.cpp
-	$(CC) -c getVector.cpp
+server.o: server.cpp
+	$(CC) -c server.cpp
 
 clean:
 	$(RM) $(OBJS) $(ERROR_IGNORE)
