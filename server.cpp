@@ -2,13 +2,11 @@
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
 #include <fstream>
 #include "GetInput.hpp"
 #include "Knn.hpp"
-#include "DistanceFactory.hpp"
 
 using namespace std;
 void server(string fileName, int port) {
@@ -91,35 +89,5 @@ int main(int argc, char *argv[]) {
     checkFile(argv[1]);
     int port = atoi(argv[2]);
     server(fileName, port);
-//    GetInput* input = new GetInput(fileName);
-//    input->setInfo("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 MAN 0");
-//    string tag;
-//    if (input->getflag() == 0) {
-//        Knn myKnn = Knn(input->getInputVec(), input->getK(), input->getDistance());
-//        tag = myKnn.getTag(input->getVec());
-//        if (myKnn.getFlag() == 0) {
-//            tag = "invalid input";
-//        }
-//    } else {
-//        tag = "invalid input";
-//    }
-//    cout << tag;
-//    cout << input->getflag() << endl;
-//    delete input;
     return 0;
 }
-
-//cout << buffer << endl;
-////GetInput input = GetInput(fileName, buffer);
-//
-////                if (input.getflag() == 0) {
-////                    Knn myKnn = Knn(input.getInputVec(), input.getK(), input.getDistance());
-////                    tag = myKnn.getTag(input.getVec());
-////                    if (myKnn.getFlag() == 0) {
-////                        tag = "invalid input";
-////                    }
-////                } else {
-////                    tag = "invalid input";
-////                }
-//}
-//int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);

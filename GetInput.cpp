@@ -45,6 +45,7 @@ void GetInput::initDis(string disType) {
     }
 }
 
+// takes the double vector from the user, the distance method and the k, and sends them for testing
 void GetInput::setInfo (string info) {
     string line = std::move(info);
     // making a string stream in order to saparate the spaces
@@ -53,23 +54,25 @@ void GetInput::setInfo (string info) {
     vector<double> vec;
     // a string for each word in the line
     string y = "";
+    // string for distance type and k
     string disType;
     string k;
     // a double to put the numbers in
     double x;
+    // saves if theres more doubles to take to the vector
     int moreDoubles = 1;
     // while we have more words to put in y string
     while (stream >> y) {
         // we use an istring stream to convert the word to double
         istringstream iss(y);
-        // if the converstion was made we put the double in the vector
+        // if there's more doubles, we put the double in the vector
         if (moreDoubles && iss >> x) {
             vec.push_back(x);
         }
         // else we have a string and we break
         else {
             moreDoubles = 0;
-            // adds a space if theres more strings in the end
+            // adds a space if there's more strings in the end
             if (!stream.eof())
                 disType = y;
             // else adds with no space
@@ -79,17 +82,15 @@ void GetInput::setInfo (string info) {
             }
         }
     }
-    //cout << "distance: " << disType << " k: " << k << endl;
+    // if the strings arent empty we initiate and test them
     if (!k.empty() && !disType.empty()) {
         initK(k);
         initDis(disType);
     } else {
+        // if they're empty we save that there's a problem with the input
         m_flag = 0;
     }
-//    for (double d: vec) {
-//        //cout << d << " ";
-//    }
-//    //cout << endl;
+    // the double vectors
     m_vec = vec;
 }
 
