@@ -8,10 +8,9 @@
 #include "GetInput.hpp"
 using namespace std;
 
-GetInput::GetInput(string file, string data){
+GetInput::GetInput(string file){
     m_flag = 1;
     m_inputVec = getClsVecs(file);
-    takeVecKAndDis(data);
 }
 
 GetInput::~GetInput() {
@@ -39,15 +38,15 @@ vector<double> GetInput::getVec() {
 
 
 void GetInput::initDis(string disType) {
-    if ( !((disType == "AUC") || (disType == "MAN") || (disType == "CHB")|| (disType == "CAN" )|| (disType == "MIN"))) {
-        m_flag =0;
-    } else{
+    if (!((disType == "AUC") || (disType == "MAN") || (disType == "CHB")|| (disType == "CAN" )|| (disType == "MIN"))) {
+        m_flag = 0;
+    } else {
         m_distance = new DistanceFactory(disType);
     }
 }
 
-void GetInput::takeVecKAndDis(string info) {
-    string line = info;
+void GetInput::setInfo (string info) {
+    string line = std::move(info);
     // making a string stream in order to saparate the spaces
     stringstream stream(line);
     // a vector of doubles
@@ -80,17 +79,17 @@ void GetInput::takeVecKAndDis(string info) {
             }
         }
     }
-    cout << "distance: " << disType << " k: " << k << endl;
+    //cout << "distance: " << disType << " k: " << k << endl;
     if (!k.empty() && !disType.empty()) {
         initK(k);
         initDis(disType);
     } else {
         m_flag = 0;
     }
-    for (double d: vec) {
-        cout << d << " ";
-    }
-    cout << endl;
+//    for (double d: vec) {
+//        //cout << d << " ";
+//    }
+//    //cout << endl;
     m_vec = vec;
 }
 
@@ -160,7 +159,7 @@ void GetInput::initK(string num) {
             m_flag = 0;
         }
     }
-    if(m_inputVec.size() < stoi(num) && stoi(num) > 0){
+    if(m_inputVec.size() < stoi(num) || stoi(num) <= 0){
         m_flag = 0;
     }
     m_k = stoi(num);

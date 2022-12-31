@@ -17,10 +17,11 @@ private:
     void initK(string num);
     void initDis(string disType);
     vector<pair<vector<double>, string>> getClsVecs(string fileName);
-    void takeVecKAndDis(string info);
+
 public:
-    GetInput(string file, string data);
+    GetInput(string file);
     int getflag() const;
+    void setInfo(string info);
     vector<pair<vector<double>,string>> getInputVec();
     IDistance* getDistance();
     int getK();
