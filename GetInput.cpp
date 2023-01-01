@@ -20,6 +20,10 @@ GetInput::~GetInput() {
 int GetInput::getflag() const{
     return m_flag;
 }
+
+void GetInput::setflag(){
+    m_flag = 1;
+}
 vector<pair<vector<double>,string>> GetInput::getInputVec(){
     return m_inputVec;
 }

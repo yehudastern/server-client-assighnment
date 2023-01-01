@@ -22,6 +22,7 @@ public:
     GetInput(string file);
     int getflag() const;
     void setInfo(string info);
+    void setflag();
     vector<pair<vector<double>,string>> getInputVec();
     IDistance* getDistance();
     int getK();

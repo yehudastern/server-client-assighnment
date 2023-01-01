@@ -7,6 +7,7 @@
 #include <fstream>
 #include "GetInput.hpp"
 #include "Knn.hpp"
+#include "Server.hpp"
 
 using namespace std;
 void server(string fileName, int port) {
@@ -34,9 +35,9 @@ void server(string fileName, int port) {
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
             perror("error accepting client");
-            break;
         }
         while (true) {
+            input->setflag();
             string tag;
             char buffer[4096];
             memset(buffer, 0, sizeof buffer);
@@ -60,7 +61,8 @@ void server(string fileName, int port) {
                     tag = "invalid input";
                 }
 
-            } int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
+            } 
+            int sent_bytes = send(client_sock, tag.c_str(), tag.size(), 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }
@@ -85,9 +87,16 @@ void checkFile(char* fileName) {
 
 int main(int argc, char *argv[]) {
     string fileName = argv[1];
-    //cout << "file name: " << fileName << " port: " << argv[2] << endl;
     checkFile(argv[1]);
+    // need check validition of port
     int port = atoi(argv[2]);
-    server(fileName, port);
+    Server myServer = Server(fileName, port);
+    while (true) {
+        myServer.server_accept();
+        while (myServer.server_recv()){
+            myServer.server_send();
+        }
+        close(myServer.getClientSock());
+    }
     return 0;
 }
