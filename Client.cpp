@@ -63,10 +63,8 @@ string Client::receiveMessage() {
     } else if (read_bytes < 0) {
         m_error = "socket error";
         sendError();
-    } else {
-        // returns the message
-        return buffer;
     }
+    return buffer;
 }
 
 void Client::sendError() {
