@@ -39,6 +39,10 @@ int checkPort(char* portInput) {
 }
 
 int main(int argc, char *argv[]) {
+    if (argc != 3){
+        cout << "please run again with argument" << endl;
+        exit(1);
+    }
     string fileName = argv[1];
     checkFile(argv[1]);
     checkPort(argv[2]);

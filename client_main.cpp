@@ -3,6 +3,10 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+    if (argc != 3){
+        cout << "please run again with argument" << endl;
+        exit(1);
+    }
     Client client(argv[1], atoi(argv[2])); // starts the client
     client.connect(); // connects to the server
     while(true) {
