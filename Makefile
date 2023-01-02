@@ -1,7 +1,7 @@
 #set up the compiler and necessary compilation flags.
 CC = g++ -std=c++11
 
-OBJS = DistanceFactory.o distances.o Knn.o select.o IDistance.o GetInput.o Server.o
+OBJS = DistanceFactory.o distances.o Knn.o select.o IDistance.o GetInput.o Server.o Client.o
 
 ifeq ($(OS),Windows_NT)
 	RM = del /F /Q
