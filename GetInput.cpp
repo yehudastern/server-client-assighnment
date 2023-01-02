@@ -66,6 +66,7 @@ void GetInput::setInfo (string info) {
     // saves if theres more doubles to take to the vector
     int moreDoubles = 1;
     // while we have more words to put in y string
+    int twoMoreStrings = 1;
     while (stream >> y) {
         // we use an istring stream to convert the word to double
         istringstream iss(y);
@@ -73,13 +74,15 @@ void GetInput::setInfo (string info) {
         if (moreDoubles && iss >> x) {
             vec.push_back(x);
         }
-        // else we have a string and we break
+        // we take the two last strings
         else {
             moreDoubles = 0;
-            // adds a space if there's more strings in the end
-            if (!stream.eof())
+            // if theres two more strings to take
+            if (twoMoreStrings) {
                 disType = y;
-            // else adds with no space
+                twoMoreStrings = 0;
+            }
+            // else we have the last string
             else {
                 k = y;
                 break;
@@ -162,6 +165,7 @@ void GetInput::initK(string num) {
     for (char c : num) {
         if(!isdigit(c)){
             m_flag = 0;
+            return;
         }
     }
     if(m_inputVec.size() < stoi(num) || stoi(num) <= 0){
