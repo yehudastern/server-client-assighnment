@@ -26,13 +26,13 @@ server class:
 
 client class:
 
-This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
+- This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
 
-The class has a constructor that takes an IP address and port number as arguments, and creates a socket for the client. It also has connect() method that attempts to connect the client to the server using the provided IP address and port number.
+- The class has a constructor that takes an IP address and port number as arguments, and creates a socket for the client. It also has connect() method that attempts to connect the client to the server using the provided IP address and port number.
 
-The sendMessage() method sends a message to the server, and the receiveMessage() method receives a message from the server. The sendError() method is called when there is an error in the communication, and it sends an error message to the server.
+- The sendMessage() method sends a message to the server, and the receiveMessage() method receives a message from the server. The sendError() method is called when there is an error in the communication, and it sends an error message to the server.
 
-The checkIp() and checkPort() methods are helper functions that validate the IP address and port number, respectively. If either of them is invalid, the program exits with an error message.
+- The checkIp() and checkPort() methods are helper functions that validate the IP address and port number, respectively. If either of them is invalid, the program exits with an error message.
 server.cpp and client.cpp run the server and the class using the server class and client class.
 
 # Milestone 1B
