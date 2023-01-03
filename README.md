@@ -7,7 +7,11 @@ In this milestone we essentionally made a server and a client. The client connec
      x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
  
 and the server returns the distance method to be printed by the client, or invalid arguments.
-
+ - compile: we provided a Makefile, so use make to create the server and client exe's.
+ - command line for the server:
+ -    ./server.out file port
+ - for the client:
+ -    ./client.out ip port
 
 # Milestone 1B
 
