@@ -13,14 +13,14 @@ else
 endif
 
 #linking command
-all: $(OBJS) server_main.o
-	$(CC) $(OBJS) server_main.o
+all: $(OBJS) server.o
+	$(CC) $(OBJS) server.o
 
 %.o: %.cpp %.hpp
 	$(CC) -c $< -o $@
 
-server.o: server_main.cpp
-	$(CC) -c server_main.cpp
+server.o: server.cpp
+	$(CC) -c server.cpp
 
 clean:
 	$(RM) $(OBJS) $(ERROR_IGNORE)

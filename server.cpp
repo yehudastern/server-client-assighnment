@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// check that file is exist
 void checkFile(char* fileName) {
     ifstream file(fileName);
     if (file.is_open()) {
@@ -23,6 +24,7 @@ void checkFile(char* fileName) {
     }
 }
 
+// check that the port is valid integer bitween 1024 - 65536
 int checkPort(char* portInput) {
     int port = atoi(portInput);
     for (char c : string(portInput)) {
@@ -39,20 +41,27 @@ int checkPort(char* portInput) {
 }
 
 int main(int argc, char *argv[]) {
+    // check that we recieve all the necessary arguments
     if (argc != 3){
         cout << "please run again with argument" << endl;
         exit(1);
     }
     string fileName = argv[1];
+    // check validation of the port and file. 
     checkFile(argv[1]);
     checkPort(argv[2]);
     int port = checkPort(argv[2]);
+    // initialize server with the fike and port
     Server myServer = Server(fileName, port);
+    // connect to client in loop
     while (true) {
         myServer.server_accept();
-        while (myServer.server_recv()){
+        // Leaves the connection with the client as long as it receives valid message
+        while (myServer.server_recv()) {
+            // send the tag to client
             myServer.server_send();
         }
+        // close connection if receive invaild massage
         close(myServer.getClientSock());
     }
     return 0;

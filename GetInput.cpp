@@ -42,6 +42,7 @@ vector<double> GetInput::getVec() {
 
 
 void GetInput::initDis(string disType) {
+    // check that we get valid input from the client, and initialize the distance
     if (!((disType == "AUC") || (disType == "MAN") || (disType == "CHB")|| (disType == "CAN" )|| (disType == "MIN"))) {
         m_flag = 0;
     } else {
