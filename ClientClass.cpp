@@ -47,7 +47,7 @@ int ClientClass::checkPort(char* port_num) {
 ClientClass::ClientClass(const char* ip_address, char* port_no) {
     // creates the socket
     checkIp(ip_address);
-    m_ip_address = (ip_address);
+    m_ip_address = ip_address;
     m_port_no = checkPort(port_no);
     m_error.clear();
     m_sock = socket(AF_INET, SOCK_STREAM, 0);
