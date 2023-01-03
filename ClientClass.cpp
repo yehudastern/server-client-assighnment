@@ -1,7 +1,7 @@
-#include "Client.h"
+#include "ClientClass.h"
 
 using namespace std;
-Client::Client(const char* ip_address, const int port_no) {
+ClientClass::ClientClass(const char* ip_address, const int port_no) {
     // creates the socket
     m_ip_address = ip_address;
     m_port_no = port_no;
@@ -13,7 +13,7 @@ Client::Client(const char* ip_address, const int port_no) {
         exit(1);
     }
 }
-void Client::connect() {
+void ClientClass::connect() {
     struct sockaddr_in sin;
     // resets sin to zeros
     memset(&sin, 0, sizeof(sin));
@@ -27,7 +27,7 @@ void Client::connect() {
         sendError();
     }
 }
-void Client::sendMessage(char data_addr[4090]) {
+void ClientClass::sendMessage(char data_addr[4090]) {
     // if user entered -1 sends an empty string to the server to shut the socket down
     if (strncmp(data_addr, "-1", 2) == 0) {
         char empty[] = "";
@@ -50,7 +50,7 @@ void Client::sendMessage(char data_addr[4090]) {
     }
 }
 
-string Client::receiveMessage() {
+string ClientClass::receiveMessage() {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     // resets the buffer
@@ -67,7 +67,7 @@ string Client::receiveMessage() {
     return buffer;
 }
 
-void Client::sendError() {
+void ClientClass::sendError() {
     // if there's an error closes the socket and leaves
     if (!m_error.empty()) {
         cout << m_error << endl;

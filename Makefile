@@ -14,8 +14,8 @@ BUILD_FILES += DistanceFactory.o
 BUILD_FILES += distances.o 
 BUILD_FILES += select.o
 BUILD_FILES += IDistance.o
-BUILD_FILES += Server.o
-BUILD_FILES += Client.o
+BUILD_FILES += ServerClass.o
+BUILD_FILES += ClientClass.o
 BUILD_FILES += GetInput.o
 
 
@@ -30,9 +30,9 @@ run: $(BUILD_FILES) server.o client.o
 %.o: %.cpp %.h
 	$(CC) -c -o $@ $<
 
-server.o: Server.cpp
+server.o: ServerClass.cpp
 	$(CC) -c -o server.o server.cpp
-client.o: Client.cpp
+client.o: ClientClass.cpp
 	$(CC) -c -o client.o client.cpp
 
 

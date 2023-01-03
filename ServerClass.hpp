@@ -3,28 +3,28 @@
 
 #include <iostream>
 #include <sys/socket.h>
-#include <stdio.h>
+#include <cstdio>
 #include <netinet/in.h>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
 #include <fstream>
-#include "Server.hpp"
+#include "ServerClass.hpp"
 #include "GetInput.hpp"
 #include "Knn.hpp"
 
-class Server {
+class ServerClass {
 private:
     int m_server_port;
     int m_server_sock;
     int m_client_sock;
     GetInput* m_input;
 public:
-    Server(string fileName, int port);
+    ServerClass(string fileName, int port);
     void server_accept(); 
     int server_recv();
     void server_send();
     int getClientSock();
-    ~Server();
+    ~ServerClass();
 };
 
 #endif //SERVER_H

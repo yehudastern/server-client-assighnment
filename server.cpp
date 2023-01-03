@@ -1,13 +1,6 @@
 #include <iostream>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <netinet/in.h>
 #include <unistd.h>
-#include <string.h>
-#include <fstream>
-#include "GetInput.hpp"
-#include "Knn.hpp"
-#include "Server.hpp"
+#include "ServerClass.hpp"
 
 using namespace std;
 
@@ -52,7 +45,7 @@ int main(int argc, char *argv[]) {
     checkPort(argv[2]);
     int port = checkPort(argv[2]);
     // initialize server with the fike and port
-    Server myServer = Server(fileName, port);
+    ServerClass myServer = ServerClass(fileName, port);
     // connect to client in loop
     while (true) {
         myServer.server_accept();

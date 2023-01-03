@@ -2,10 +2,8 @@
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
-#include <unistd.h>
 #include <string.h>
-#include <fstream>
-#include "Server.hpp"
+#include "ServerClass.hpp"
 #include "GetInput.hpp"
 #include "Knn.hpp"
 
@@ -13,7 +11,7 @@ using namespace std;
 
 
 // creat server and do binding with the port, and creat dataBase for the server.
-Server::Server(string fileName, int port) {
+ServerClass::ServerClass(string fileName, int port) {
     m_server_port = port;
     // set data base.
     m_input = new GetInput(fileName);
@@ -32,12 +30,12 @@ Server::Server(string fileName, int port) {
     }
 }
 
-Server::~Server(){
+ServerClass::~ServerClass(){
     delete m_input;
 }
 
 // creat connection with specific client
-void Server::server_accept() { 
+void ServerClass::server_accept() {
     if (listen(m_server_sock, 5) < 0) {
         perror("error listening to a socket");
     }
@@ -50,7 +48,7 @@ void Server::server_accept() {
 }
 
 // get data from the client
-int Server::server_recv() {
+int ServerClass::server_recv() {
     char buffer[4096];
     memset(buffer, 0, sizeof(buffer));
     int expected_data_len = sizeof(buffer);
@@ -70,7 +68,7 @@ int Server::server_recv() {
 }
 
 // Processes the information according to knn algorithm and returns the tagged vector to the client.
-void Server::server_send() {
+void ServerClass::server_send() {
     string tag;
     // chece if the data we are recieve is valid
     if (m_input->getflag() == 1) {
@@ -93,6 +91,6 @@ void Server::server_send() {
     m_input->setflag();
 }
 
-int Server::getClientSock(){
+int ServerClass::getClientSock(){
     return m_client_sock;
 }

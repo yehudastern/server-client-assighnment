@@ -9,7 +9,7 @@
 #include <string.h>
 
 using namespace std;
-class Client {
+class ClientClass {
 private:
     // stores either an empty string or an error
     string m_error;
@@ -21,7 +21,7 @@ private:
     int m_sock;
 public:
     // creates a client socket
-    Client(const char* ip_address, const int port_no);
+    ClientClass(const char* ip_address, const int port_no);
     // connects the client with a server
     void connect();
     // takes a message and send it to the server
