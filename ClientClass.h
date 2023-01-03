@@ -2,11 +2,14 @@
 #define CLIENT_H
 #include <iostream>
 #include <sys/socket.h>
-#include <stdio.h>
+#include <cstdio>
+#include <sstream>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
+#include <algorithm>
+#include <string>
 
 using namespace std;
 class ClientClass {
@@ -21,7 +24,7 @@ private:
     int m_sock;
 public:
     // creates a client socket
-    ClientClass(const char* ip_address, const int port_no);
+    ClientClass(const char* ip_address, char* port_no);
     // connects the client with a server
     void connect();
     // takes a message and send it to the server
@@ -30,6 +33,10 @@ public:
     string receiveMessage();
     // checks if there's an error and if so prints it and exit
     void sendError();
+    // checking the port number is correct
+    int checkPort(char *port_num);
+    // checks the ip is correct
+    void checkIp(const char *);
 };
 
 

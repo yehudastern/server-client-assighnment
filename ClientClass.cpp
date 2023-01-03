@@ -1,10 +1,54 @@
 #include "ClientClass.h"
 
 using namespace std;
-ClientClass::ClientClass(const char* ip_address, const int port_no) {
+
+void ClientClass::checkIp(const char* ip) {
+    string s = ip;
+    replace(s.begin(), s.end(), '.', ' ');
+    istringstream iss(s);
+    string num;
+    int flag = 0;
+    int count = 0;
+    while (iss >> num) {
+        for (char c : num) {
+            if(!isdigit(c)) {
+                cout << "Wrong IP argument! please try again :)" << endl;
+                exit(1);
+            }
+        }
+        int number = stoi(num);
+        if (number < 0 || number > 256) {
+            flag = 1;
+        }
+        count++;
+    }
+    if (count != 4 || flag) {
+        cout << "Wrong IP argument! please try again :)" << endl;
+        exit(1);
+    }
+}
+
+int ClientClass::checkPort(char* port_num) {
+    // check that the port is valid integer between 1024 - 65536
+    int port = atoi(port_num);
+    for (char c : string(port_num)) {
+        if(!isdigit(c)) {
+            cout << "The port is not valid" << endl;
+            exit(1);
+        }
+    }
+    if (port < 1024 || port > 65536) {
+        cout << " The port is not valid" << endl;
+        exit(1);
+    }
+    return port;
+}
+
+ClientClass::ClientClass(const char* ip_address, char* port_no) {
     // creates the socket
-    m_ip_address = ip_address;
-    m_port_no = port_no;
+    checkIp(ip_address);
+    m_ip_address = (ip_address);
+    m_port_no = checkPort(port_no);
     m_error.clear();
     m_sock = socket(AF_INET, SOCK_STREAM, 0);
     // exit if theres an error

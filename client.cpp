@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
         cout << "please run again with argument" << endl;
         exit(1);
     }
-    ClientClass client(argv[1], atoi(argv[2])); // starts the client
+    ClientClass client(argv[1], argv[2]); // starts the client
     client.connect(); // connects to the server
     while(true) {
         char data_addr[4090];

@@ -17,7 +17,7 @@ void checkFile(char* fileName) {
     }
 }
 
-// check that the port is valid integer bitween 1024 - 65536
+// check that the port is valid integer between 1024 - 65536
 int checkPort(char* portInput) {
     int port = atoi(portInput);
     for (char c : string(portInput)) {
