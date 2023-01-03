@@ -2,13 +2,13 @@
 
 # Milestone 2
 
-In this milestone we essentionally made a server and a client. The client connects to the server (using tcl protocol). send the server a vector a distance method and a number in this form:
+In this milestone we essentionally made a server and a client. The client connects to the server (using tcl protocol). Send the server a vector a distance method and a number in this form:
 
      x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number (vector distance k)
  
-and the server returns the distance method to be printed by the client, or invalid arguments.
- - compile: we provided a Makefile, so use make to create the server and client executables.
- - command line for the server:
+And the server returns the distance method to be printed by the client, or invalid arguments.
+ - Compile: We provided a Makefile, so use make to create the server and client executables.
+ - Command line for the server:
  
      ./server.out file port
      
@@ -16,15 +16,15 @@ and the server returns the distance method to be printed by the client, or inval
  
      ./client.out ip port
 
-added classes:
+Added classes:
 
-get input: 
+Get input: 
 
-- The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
+- The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). If the information the user entered is wrong it saves that. It can than be used to fuel the knn class to get the results.
 
-server class: 
+Server class: 
 
-client class:
+Client class:
 
 - This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
 
