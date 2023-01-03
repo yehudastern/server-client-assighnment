@@ -1,27 +1,41 @@
-#set up the compiler and necessary compilation flags.
+# Makefile for running two programs
+
+# Choose the compiler.
 CC = g++ -std=c++11
-
-OBJS = DistanceFactory.o distances.o Knn.o select.o IDistance.o GetInput.o Server.o Client.o
-
+# Have the right clean command.
 ifeq ($(OS),Windows_NT)
-	RM = del /F /Q
-	EXE = a.exe
+	CLN=del
 else
-	RM = rm -rf
-	ERROR_IGNORE = 2>/dev/null
-	EXE = a.out
+	CLN=rm
 endif
 
-#linking command
-all: $(OBJS) server.o
-	$(CC) $(OBJS) server.o
+BUILD_FILES := Knn.o
+BUILD_FILES += DistanceFactory.o
+BUILD_FILES += distances.o 
+BUILD_FILES += select.o
+BUILD_FILES += IDistance.o
+BUILD_FILES += Server.o
+BUILD_FILES += Client.o
+BUILD_FILES += GetInput.o
 
-%.o: %.cpp %.hpp
-	$(CC) -c $< -o $@
 
-server.o: server.cpp
-	$(CC) -c server.cpp
+all: $(BUILD_FILES) server.o client.o
+	$(CC) $(BUILD_FILES) server.o -o server.out
+	$(CC) $(BUILD_FILES) client.o -o client.out
 
+run: $(BUILD_FILES) server.o client.o
+	$(CC) $(BUILD_FILES) server.o -o server.out & $(CC) $(BUILD_FILES) client.o -o client.out
+
+# Build the algs folder
+%.o: %.cpp %.h
+	$(CC) -c -o $@ $<
+
+server.o: Server.cpp
+	$(CC) -c -o server.o server.cpp
+client.o: Client.cpp
+	$(CC) -c -o client.o client.cpp
+
+
+# Clean command
 clean:
-	$(RM) $(OBJS) $(ERROR_IGNORE)
-	$(RM) $(EXE) $(ERROR_IGNORE)
+	$(CLN) *.o server.out client.out
