@@ -13,13 +13,13 @@ and the server returns the distance method to be printed by the client, or inval
  - for the client:
      ./client.out ip port
  added classes:
-1. get input: 
+get input: 
 
 The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
 
-3. server class: 
+server class: 
 
-5. client class:
+client class:
 
 This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
 
