@@ -4,15 +4,20 @@
 
 In this milestone we essentionally made a server and a client. The client connects to the server (using tcl protocol). send the server a vector a distance method and a number in this form:
 
-     x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
+     x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number (vector distance k)
  
 and the server returns the distance method to be printed by the client, or invalid arguments.
  - compile: we provided a Makefile, so use make to create the server and client executables.
  - command line for the server:
+ 
      ./server.out file port
+     
  - for the client:
+ 
      ./client.out ip port
- added classes:
+
+added classes:
+
 get input: 
 
 The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
