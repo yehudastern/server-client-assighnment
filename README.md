@@ -13,9 +13,21 @@ and the server returns the distance method to be printed by the client, or inval
  - for the client:
      ./client.out ip port
  added classes:
-1. get input:
-2. server class:
-3. client class:
+1. get input: 
+
+The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
+
+3. server class: 
+
+5. client class:
+
+This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
+
+The class has a constructor that takes an IP address and port number as arguments, and creates a socket for the client. It also has connect() method that attempts to connect the client to the server using the provided IP address and port number.
+
+The sendMessage() method sends a message to the server, and the receiveMessage() method receives a message from the server. The sendError() method is called when there is an error in the communication, and it sends an error message to the server.
+
+The checkIp() and checkPort() methods are helper functions that validate the IP address and port number, respectively. If either of them is invalid, the program exits with an error message.
 server.cpp and client.cpp run the server and the class using the server class and client class.
 
 # Milestone 1B
