@@ -1,12 +1,15 @@
-# AP
-## test
-- test
-- test
-1. test
-2. test
-an assignment for class advanced programming 1 - etgar and yehuda
+## An assignment for the class advanced programming 1 by etgar and yehuda
 
-second assignment:
+# Milestone 2
+
+## In this milestone we essentionally made a server and a client.
+## The client connects to the server (using tcl protocol).
+## send the server a vector a distance method and a number in this form:
+x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
+## and the server returns the distance method
+
+
+# Milestone 1B
 
 compile: The program can be compiled using a Makefile.
 
@@ -43,7 +46,7 @@ Distance factory: takes a string and picks a distance class accordingly and uses
 changed the distances into IDistance classes.
 
 
-here in some data from the previous assighment:
+# milestone 1A!
 
 get input function: 
 function that get a vector from the user and check if the vector is valid.
