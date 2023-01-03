@@ -7,11 +7,16 @@ In this milestone we essentionally made a server and a client. The client connec
      x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
  
 and the server returns the distance method to be printed by the client, or invalid arguments.
- - compile: we provided a Makefile, so use make to create the server and client exe's.
+ - compile: we provided a Makefile, so use make to create the server and client executables.
  - command line for the server:
- -    ./server.out file port
+     ./server.out file port
  - for the client:
- -    ./client.out ip port
+     ./client.out ip port
+ added classes:
+1. get input:
+2. server class:
+3. client class:
+server.cpp and client.cpp run the server and the class using the server class and client class.
 
 # Milestone 1B
 
