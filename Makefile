@@ -30,9 +30,9 @@ run: $(BUILD_FILES) server.o client.o
 %.o: %.cpp %.h
 	$(CC) -c -o $@ $<
 
-server.o: ServerClass.cpp
+server.o: server.cpp
 	$(CC) -c -o server.o server.cpp
-client.o: ClientClass.cpp
+client.o: client.cpp
 	$(CC) -c -o client.o client.cpp
 
 
