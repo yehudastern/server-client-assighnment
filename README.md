@@ -1,12 +1,10 @@
-## An assignment for the class advanced programming 1 by etgar and yehuda
+ An assignment for the class advanced programming 1 by etgar and yehuda
 
 # Milestone 2
 
-## In this milestone we essentionally made a server and a client.
-## The client connects to the server (using tcl protocol).
-## send the server a vector a distance method and a number in this form:
-x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
-## and the server returns the distance method
+In this milestone we essentionally made a server and a client. The client connects to the server (using tcl protocol). send the server a vector a distance method and a number in this form:
+ x1 x2 x3 ... xn MAN/AUC/CHB/CAN/MIN number
+and the server returns the distance method to be printed by the client, or invalid arguments.
 
 
 # Milestone 1B
