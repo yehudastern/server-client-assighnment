@@ -20,7 +20,7 @@ added classes:
 
 get input: 
 
-The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
+- The GetInput class is used to read in data from a dataset and store it in a vector of pairs, where each pair consists of a vector of doubles and a string. The GetInput class also gets the information the client sends and converts it into a vector of doubles, a distance method, and a k (the k closest vectors to check). if the information the user entered is wrong it saves that. it can than be used to fuel the knn class to get the results.
 
 server class: 
 
