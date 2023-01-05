@@ -44,7 +44,7 @@ Client class:
 
 - The checkIp() and checkPort() methods are helper functions that validate the IP address and port number, respectively. If either of them is invalid, the program exits with an error message.
 
-server.cpp and client.cpp run the server and the class using the server class and client class. The server performs several normal checks for the input received in the run line, and runs in a loop to receive a client, when it succeeds in connecting, it remains in another internal loop as long as the transmitted information is correct.
+server.cpp and client.cpp run the server and the class using the server class and client class. The server performs several normal checks for the input received in the command line, and runs in a loop to receive a client, when it succeeds in connecting, it remains in another internal loop as long as the transmitted information is correct.
 
 # Milestone 1B
 
