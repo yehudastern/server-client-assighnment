@@ -24,6 +24,16 @@ Get input:
 
 Server class: 
 
+- This code defines a class ServerClass for a server in a client-server network communication. The server can send and receive messages to and from a server, and the class provides methods for connecting to the client, receiving messages, and sending messages. (See below for more details about the main methods)
+
+- The server can be initialized as follows: ServerClass(string fileName, int port), It takes two parameters - fileName: a string containing the name of a file, port: an int representing the port number to bind the server's socket to. The constructor creates a socket and binds it to the specified port using the AF_INET address family and the SOCK_STREAM socket type. It then creates an instance of the GetInput class (see above) and stores it in the m_input member variable. If either the socket creation or binding fails, an error message is printed to stderr and the program exits with a status code of 1.
+
+- The server_accept() method listens for a connection from a client on the server's socket and, if one is received, accepts it and stores the resulting client socket in the m_client_sock member variable. If there is an error listening to or accepting a connection, an error message is printed to stderr.
+
+- The server_recv() method receives data from the client socket stored in m_client_sock. It reads the data into a buffer and if the data is exist then passes it to the setInfo method of the m_input object(for recives organization data). If there was an error receiving data from the client, an error message is printed to stderr and 0 is returned (for close the connect with the client). If the connection was closed by the client, a message is printed to cout and 0 is returned. Otherwise, 1 is returned (for coninue in the loop).
+
+- The server_send() method processes the data received from the client using the Knn class and sends the result back to the client. It first checks the value of the m_input object's getflag method to determine if the data was properly formatted. If it was, the Knn class is used to classify the data and the resulting tag is sent to the client. If the getflag of Knn or GetInput Class returns 0, indicating an error in the input data, an error message is sent to the client instead.
+
 Client class:
 
 - This code defines a class ClientClass for a client in a client-server network communication. The client can send and receive messages to and from a server, and the class provides methods for connecting to the server, sending messages, and receiving messages.
@@ -33,7 +43,8 @@ Client class:
 - The sendMessage() method sends a message to the server, and the receiveMessage() method receives a message from the server. The sendError() method is called when there is an error in the communication, and it sends an error message to the server.
 
 - The checkIp() and checkPort() methods are helper functions that validate the IP address and port number, respectively. If either of them is invalid, the program exits with an error message.
-server.cpp and client.cpp run the server and the class using the server class and client class.
+
+server.cpp and client.cpp run the server and the class using the server class and client class. The server performs several normal checks for the input received in the run line, and runs in a loop to receive a client, when it succeeds in connecting, it remains in another internal loop as long as the transmitted information is correct.
 
 # Milestone 1B
 
