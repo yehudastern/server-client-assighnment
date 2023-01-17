@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
-#include "ServerClass.hpp"
+#include "SocketIO.h"
+#include "Cli.h"
 
 using namespace std;
 
@@ -35,27 +36,28 @@ int checkPort(char* portInput) {
 
 int main(int argc, char *argv[]) {
     // check that we recieve all the necessary arguments
-    if (argc != 3){
-        cout << "please run again with argument" << endl;
+    if (argc != 2){
+        cout << "please run again with an appropriate number of arguments (./server.out port)" << endl;
         exit(1);
     }
-    string fileName = argv[1];
+    //string fileName = argv[1];
     // check validation of the port and file. 
-    checkFile(argv[1]);
-    checkPort(argv[2]);
-    int port = checkPort(argv[2]);
+    //checkFile(argv[1]);
+    checkPort(argv[1]);
+    int port = checkPort(argv[1]);
     // initialize server with the fike and port
-    ServerClass myServer = ServerClass(fileName, port);
+    SocketIO* myServer = new SocketIO(port);
     // connect to client in loop
     while (true) {
-        myServer.server_accept();
+        myServer->socketAccept();
+        Cli cli = Cli(myServer);
         // Leaves the connection with the client as long as it receives valid message
-        while (myServer.server_recv()) {
-            // send the tag to client
-            myServer.server_send();
-        }
+        // while (myServer->read() != "-1") {
+        //     // send the tag to client
+        //     myServer->write("test");
+        // }
         // close connection if receive invaild massage
-        close(myServer.getClientSock());
+        close(myServer->getClientSock());
     }
     return 0;
 }

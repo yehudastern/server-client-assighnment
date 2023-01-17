@@ -21,10 +21,6 @@ public:
     ~ManageData();
 };
 
-ManageData::ManageData() {
-
-}
-
 ManageData::~ManageData() {
     delete m_distance;
 }

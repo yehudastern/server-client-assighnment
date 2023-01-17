@@ -8,42 +8,42 @@
 
 class Command {
 protected:
-    ManageData m_data;
-    DefaultIO m_dio;
+    ManageData* m_data;
+    DefaultIO* m_dio;
     string m_description;
 public:
-    Command(ManageData , DefaultIO);
+    Command(ManageData* , DefaultIO*);
     virtual void execute() = 0;
     string getdescription();
 };
 
 class UploadCommand : public Command {
     public:
-    UploadCommand(ManageData , DefaultIO);
+    UploadCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
 class AlgorithmSettingCommand : public Command {
     public:
-    AlgorithmSettingCommand(ManageData ,DefaultIO);
+    AlgorithmSettingCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
 class ClassifyCommand : public Command {
     public:
-    ClassifyCommand(ManageData ,DefaultIO);
+    ClassifyCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
 class DisplayCommand : public Command {
     public:
-    DisplayCommand(ManageData ,DefaultIO);
+    DisplayCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
 class DownloadCommand : public Command {
     public:
-    DownloadCommand(ManageData ,DefaultIO);
+    DownloadCommand(ManageData* , DefaultIO*);
     void execute();
 };
 

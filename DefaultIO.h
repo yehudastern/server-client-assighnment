@@ -2,6 +2,7 @@
 #define DEFAULTIO_H
 
 #include <iostream>
+using namespace std;
 
 class DefaultIO {
 public:

@@ -19,7 +19,7 @@ private:
     int m_client_sock;
     GetInput* m_input;
 public:
-    ServerClass(string fileName, int port);
+    ServerClass(int port);
     void server_accept(); 
     int server_recv();
     void server_send();
