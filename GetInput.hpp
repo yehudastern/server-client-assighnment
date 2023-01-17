@@ -7,7 +7,7 @@
 #include <map>
 #include "IDistance.hpp"
 
-class GetInput{
+class GetInput {
 private:
     vector<pair<vector<double>,string>> m_inputVec;
     vector<double> m_vec;

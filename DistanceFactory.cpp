@@ -26,3 +26,23 @@ double DistanceFactory::getDistance(vector<double> v1, vector<double> v2) {
 DistanceFactory::~DistanceFactory() {
     delete m_distance;
 }
+
+void DistanceFactory::setDistance(string distanceName) {
+    delete m_distance;
+    // we pick the distance embedded class accodrding to the provided string.
+    if (distanceName == "AUC") 
+        m_distance = new euclideanDistance();
+    else if (distanceName == "MAN") 
+        m_distance = new manhatenDistance();
+    else if (distanceName == "CHB") 
+        m_distance = new chebyshevDistance();
+    else if (distanceName == "CAN") 
+        m_distance = new canberraDistance();
+    else if (distanceName == "MIN") 
+        m_distance = new minkowskiDistance();
+        // if the string is wrong exits
+    else {
+        std::cout << "test distance failed" << std::endl;
+        exit(1);
+    }
+}

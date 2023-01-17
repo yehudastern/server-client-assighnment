@@ -169,7 +169,7 @@ void GetInput::initK(string num) {
             return;
         }
     }
-    if(m_inputVec.size() < stoi(num) || stoi(num) <= 0){
+    if (m_inputVec.size() < stoi(num) || stoi(num) <= 0) {
         m_flag = 0;
     }
     m_k = stoi(num);

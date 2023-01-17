@@ -1,5 +1,6 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef CLIENT_CLASS_H
+#define CLIENT_CLASS_H
+
 #include <iostream>
 #include <sys/socket.h>
 #include <cstdio>
@@ -40,4 +41,4 @@ public:
 };
 
 
-#endif //CLIENT_H
+#endif

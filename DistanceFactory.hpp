@@ -18,6 +18,7 @@ class DistanceFactory : public IDistance {
         double getDistance(vector<double> v1, vector<double> v2) override;
         // constructor that sets m_distance by string
         DistanceFactory(const std::string& distanceName);
+        void setDistance(string);
         // destructor
         ~DistanceFactory() override;
 };
