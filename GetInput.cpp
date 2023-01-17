@@ -8,7 +8,7 @@
 #include "GetInput.hpp"
 using namespace std;
 
-GetInput::GetInput(string file){
+GetInput::GetInput(string file) {
     m_flag = 1;
     m_inputVec = getClsVecs(file);
 }
