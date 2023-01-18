@@ -18,6 +18,7 @@ private:
     int m_server_sock;
     int m_client_sock;
     GetInput* m_input;
+    // stores either an empty string or an error
 public:
     ServerClass(int port);
     void server_accept(); 
@@ -25,6 +26,7 @@ public:
     void server_send();
     int getClientSock();
     ~ServerClass();
+    void sendError(string error);
 };
 
 #endif //SERVER_H
