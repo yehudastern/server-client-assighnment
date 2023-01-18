@@ -17,15 +17,13 @@ private:
     int m_server_port;
     int m_server_sock;
     int m_client_sock;
-    GetInput* m_input;
     // stores either an empty string or an error
 public:
     ServerClass(int port);
     void server_accept(); 
-    int server_recv();
-    void server_send();
+    string server_recv();
+    void server_send(string);
     int getClientSock();
-    ~ServerClass();
     void sendError(string error);
 };
 

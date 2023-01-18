@@ -28,10 +28,6 @@ ServerClass::ServerClass(int port) {
     }
 }
 
-ServerClass::~ServerClass(){
-    delete m_input;
-}
-
 // creat connection with specific client
 void ServerClass::server_accept() {
     if (listen(m_server_sock, 10) < 0) {
@@ -46,7 +42,7 @@ void ServerClass::server_accept() {
 }
 
 // get data from the client
-int ServerClass::server_recv() {
+string ServerClass::server_recv() {
     char buffer[4096];
     memset(buffer, 0, sizeof(buffer));
     int expected_data_len = sizeof(buffer);
@@ -59,34 +55,40 @@ int ServerClass::server_recv() {
         cout << "error of recv!" << endl;
         return 0;
     } else {
-        // If the data is valid, sends the data to setInfo for recive organization data
-        m_input->setInfo(buffer);
-        return 1;
-    }    
+        return buffer;
+    }
 }
 
 // Processes the information according to knn algorithm and returns the tagged vector to the client.
-void ServerClass::server_send() {
-    string tag;
-    // chece if the data we are recieve is valid
-    if (m_input->getflag() == 1) {
-        // initialize the Knn algorithem
-        Knn myKnn = Knn(m_input->getInputVec(), m_input->getK(), m_input->getDistance());
-        tag = myKnn.getTag(m_input->getVec());
-        // Checks that the vector was suitable for testing
-        if (myKnn.getFlag() == 0) {
-            tag = "invalid input";
-        }
-    } else {
-            tag = "invalid input";
-    }
+void ServerClass::server_send(string str) {
+    // this is for future knn workings
+//    string tag;
+//    // chece if the data we are recieve is valid
+//    if (m_input->getflag() == 1) {
+//        // initialize the Knn algorithem
+//        Knn myKnn = Knn(m_input->getInputVec(), m_input->getK(), m_input->getDistance());
+//        tag = myKnn.getTag(m_input->getVec());
+//        // Checks that the vector was suitable for testing
+//        if (myKnn.getFlag() == 0) {
+//            tag = "invalid input";
+//        }
+//    } else {
+//            tag = "invalid input";
+//    }
+//    // Sends the tag with a tagged vector, or with an error message when a problem has occurred
+//    int sent_bytes = send(m_client_sock, tag.c_str(), tag.size(), 0);
+//    if (sent_bytes < 0) {
+//        sendError("error sending to client");
+//    }
+//    // set flag for the next vector
+//    m_input->setflag();
+
+
     // Sends the tag with a tagged vector, or with an error message when a problem has occurred
-    int sent_bytes = send(m_client_sock, tag.c_str(), tag.size(), 0);
+    int sent_bytes = send(m_client_sock, str.c_str(), str.size(), 0);
     if (sent_bytes < 0) {
         sendError("error sending to client");
     }
-    // set flag for the next vector
-    m_input->setflag();
 }
 
 int ServerClass::getClientSock(){
