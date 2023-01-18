@@ -16,7 +16,12 @@ BUILD_FILES += select.o
 BUILD_FILES += IDistance.o
 BUILD_FILES += ServerClass.o
 BUILD_FILES += ClientClass.o
-BUILD_FILES += GetInput.o
+BUILD_FILES += Cli.o 
+BUILD_FILES += CliClient.o
+BUILD_FILES += Command.o
+BUILD_FILES += ManageData.o
+BUILD_FILES += SocketIO.o
+
 
 
 all: $(BUILD_FILES) server.o client.o

@@ -16,8 +16,8 @@ private:
     ServerClass* m_server;
 public:
     SocketIO(ServerClass*);
-    string read();
-    void write(string);
+    virtual std::string read();
+    virtual void write(std::string);
 };
 
 

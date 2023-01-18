@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include "SocketIO.h"
 #include "Cli.h"
+#include "ServerClass.hpp"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ int checkPort(char* portInput) {
 }
 
 int main(int argc, char *argv[]) {
+
     // check that we recieve all the necessary arguments
     if (argc != 2){
         cout << "please run again with an appropriate number of arguments (./server.out port)" << endl;
@@ -43,21 +45,25 @@ int main(int argc, char *argv[]) {
     //string fileName = argv[1];
     // check validation of the port and file. 
     //checkFile(argv[1]);
-    checkPort(argv[1]);
     int port = checkPort(argv[1]);
     // initialize server with the fike and port
-    SocketIO* myServer = new SocketIO(port);
+    cout << "trying to accept"<< endl;
+    ServerClass server(port);
     // connect to client in loop
     while (true) {
-        myServer->socketAccept();
-        Cli cli = Cli(myServer);
+        server.server_accept();
+        cout << "connected";
+        SocketIO sio(&server);
+        Cli cli = Cli(&sio);
+        cli.start();
+        //~cli;
         // Leaves the connection with the client as long as it receives valid message
         // while (myServer->read() != "-1") {
         //     // send the tag to client
         //     myServer->write("test");
         // }
         // close connection if receive invaild massage
-        close(myServer->getClientSock());
+        close(server.getClientSock());
     }
     return 0;
 }

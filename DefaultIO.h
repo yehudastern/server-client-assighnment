@@ -6,8 +6,8 @@ using namespace std;
 
 class DefaultIO {
 public:
-    virtual std::string read();
-    virtual void write(std::string);
+    virtual std::string read() = 0;
+    virtual void write(std::string) = 0;
 };
 
 #endif

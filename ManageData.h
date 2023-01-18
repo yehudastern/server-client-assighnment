@@ -15,14 +15,9 @@ private:
     DistanceFactory* m_distance;
     int m_k;
 public:
-    ManageData() : m_classified(), m_unclassified(), m_k(5){
-        m_distance = new DistanceFactory("AUC");
-    }
+    ManageData();
     ~ManageData();
 };
 
-ManageData::~ManageData() {
-    delete m_distance;
-}
 
 #endif

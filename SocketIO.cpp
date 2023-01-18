@@ -10,5 +10,5 @@ string SocketIO::read() {
 }
 
 void SocketIO::write(string data) {
-    m_server->server_send(data)
+    m_server->server_send(data);
 }

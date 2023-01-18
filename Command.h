@@ -12,9 +12,9 @@ protected:
     DefaultIO* m_dio;
     string m_description;
 public:
-    Command(ManageData* , DefaultIO*);
     virtual void execute() = 0;
     string getdescription();
+    virtual ~Command();
 };
 
 class UploadCommand : public Command {

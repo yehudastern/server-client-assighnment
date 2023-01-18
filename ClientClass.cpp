@@ -102,7 +102,8 @@ string ClientClass::receiveMessage() {
     // read the message
     int read_bytes = recv(m_sock, buffer, expected_data_len, 0);
     if (read_bytes == 0) {
-        m_error = "Connection is closed."; // connection is closed
+        // connection is closed
+        m_error = "Connection is closed."; 
         sendError();
     } else if (read_bytes < 0) {
         m_error = "socket error";
