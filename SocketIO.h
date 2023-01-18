@@ -9,16 +9,13 @@
 #include <cstring>
 #include <fstream>
 #include "DefaultIO.h"
+#include "ServerClass.hpp"
 
 class SocketIO : public DefaultIO {
 private:
-    int m_server_port;
-    int m_server_sock;
-    int m_client_sock;
+    ServerClass* m_server;
 public:
-    SocketIO(int);
-    void socketAccept(); 
-    int getClientSock();
+    SocketIO(ServerClass*);
     string read();
     void write(string);
 };
