@@ -21,6 +21,7 @@ BUILD_FILES += CliClient.o
 BUILD_FILES += Command.o
 BUILD_FILES += ManageData.o
 BUILD_FILES += SocketIO.o
+BUILD_FILES += CommandClient.o
 
 
 

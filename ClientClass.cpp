@@ -71,23 +71,10 @@ void ClientClass::connect() {
         sendError();
     }
 }
-void ClientClass::sendMessage(char data_addr[4090]) {
-    // if user entered -1 sends an empty string to the server to shut the socket down
-    if (strncmp(data_addr, "-1", 2) == 0) {
-        char empty[] = "";
-        int zeroLen = 0;
-        int sent_bytes = send(m_sock, empty, zeroLen, 0);
-        if (sent_bytes < 0) {
-            m_error = "sending error";
-            sendError();
-        }
-        // adds an error message
-        m_error = "Closing socket.";
-        sendError();
-    }
+void ClientClass::sendMessage(const string& data_addr) {
     // sends the message
-    int data_len = strlen(data_addr);
-    int sent_bytes = send(m_sock, data_addr, data_len, 0);
+    int data_len = strlen(data_addr.c_str());
+    int sent_bytes = send(m_sock, data_addr.c_str(), data_len, 0);
     if (sent_bytes < 0) {
         m_error = "sending error"; // error
         sendError();
@@ -119,4 +106,9 @@ void ClientClass::sendError() {
         close(m_sock);
         exit(1);
     }
+}
+void ClientClass::closeConnection() {
+    // if there's an error closes the socket and leaves
+    close(m_sock);
+    exit(1);
 }

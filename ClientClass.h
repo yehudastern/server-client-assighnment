@@ -29,11 +29,12 @@ public:
     // connects the client with a server
     void connect();
     // takes a message and send it to the server
-    void sendMessage(char data_addr[4090]);
+    void sendMessage(const string& data_addr);
     // receives message from the server and returns it
     string receiveMessage();
     // checks if there's an error and if so prints it and exit
     void sendError();
+    void closeConnection();
     // checking the port number is correct
     int checkPort(char *port_num);
     // checks the ip is correct

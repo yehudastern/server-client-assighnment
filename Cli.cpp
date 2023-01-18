@@ -13,10 +13,16 @@ Cli::Cli(DefaultIO* io) {
 
 void Cli::start() {
     while(true) {
-        string s;
-        cin >> s;
-        m_dio->write(s);
-        cout << m_dio->read() << endl;
+        for (int i = 0; i <  5; i++) {
+            m_dio->write("hello");
+        }
+        int num = stoi(m_dio->read());
+        if (num <= 5) {
+            m_commands[num]->execute();
+        }
+        else if (num == 8) {
+            return;
+        }
     }
 }
 
