@@ -21,7 +21,9 @@ int main(int argc, char** argv) {
         case 1:
             client.sendMessage("1");
             cout << client.receiveMessage() << endl;
+            // get 
             uploadCls();
+            cout << client.receiveMessage() << endl;
             cout << client.receiveMessage() << endl;
             uploadUnCls();
             break;
