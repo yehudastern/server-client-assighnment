@@ -21,11 +21,11 @@ int UploadCommand::getTrainData() {
         if (isDone)
             break;
         string getLines = m_dio->read();
-        m_dio->write("success");
         string::size_type index = 0;
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
             return 0;
         }
+        m_dio->write("success");
         start = false;
         string line;
         std::istringstream ss(getLines);
@@ -81,11 +81,11 @@ int UploadCommand::getTestData() {
         if (isDone)
             break;
         string getLines = m_dio->read();
-        m_dio->write("success");
         string::size_type index = 0;
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
             return 0;
         }
+        m_dio->write("success");
         start = false;
         string line;
         std::istringstream ss(getLines);
