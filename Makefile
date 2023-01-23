@@ -1,7 +1,7 @@
 # Makefile for running two programs
 
 # Choose the compiler.
-CC = g++ -std=c++11
+CC = g++ -std=c++11 -pthread
 # Have the right clean command.
 ifeq ($(OS),Windows_NT)
 	CLN=del
@@ -9,20 +9,22 @@ else
 	CLN=rm
 endif
 
-BUILD_FILES := Knn.o
-BUILD_FILES += DistanceFactory.o
-BUILD_FILES += distances.o 
-BUILD_FILES += select.o
-BUILD_FILES += IDistance.o
-BUILD_FILES += ServerClass.o
-BUILD_FILES += ClientClass.o
-BUILD_FILES += Cli.o 
-BUILD_FILES += CliClient.o
-BUILD_FILES += Command.o
-BUILD_FILES += ManageData.o
-BUILD_FILES += SocketIO.o
-BUILD_FILES += CommandClient.o
-
+BUILD_FILES := server/Knn.o
+BUILD_FILES += server/DistanceFactory.o
+BUILD_FILES += server/distances.o 
+BUILD_FILES += server/select.o
+BUILD_FILES += server/IDistance.o
+BUILD_FILES += server/ServerClass.o
+BUILD_FILES += client/ClientClass.o
+BUILD_FILES += server/Cli.o 
+BUILD_FILES += client/CliClient.o
+BUILD_FILES += server/Command.o
+BUILD_FILES += server/AlgorithmSettingCommand.o
+BUILD_FILES += server/ManageData.o
+BUILD_FILES += server/SocketIO.o
+BUILD_FILES += client/CommandClient.o
+BUILD_FILES += client/SocketIOCli.o
+BUILD_FILES += server/UploadCommand.o
 
 
 all: $(BUILD_FILES) server.o client.o
@@ -36,12 +38,12 @@ run: $(BUILD_FILES) server.o client.o
 %.o: %.cpp %.h
 	$(CC) -c -o $@ $<
 
-server.o: server.cpp
-	$(CC) -c -o server.o server.cpp
-client.o: client.cpp
-	$(CC) -c -o client.o client.cpp
+server.o: server/server.cpp
+	$(CC) -c -o server.o server/server.cpp
+client.o: client/client.cpp
+	$(CC) -c -o client.o client/client.cpp
 
 
 # Clean command
 clean:
-	$(CLN) *.o server.out client.out
+	$(CLN) server/*.o client/*.o server.out client.out
