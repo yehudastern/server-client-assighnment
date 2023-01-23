@@ -79,6 +79,7 @@ void UploadCommandClient::execute() {
         return;
     }
     uploadCls(c);
+    string str = m_dio->read();
     cout << m_dio->read() << endl;
     cout << m_dio->read() << endl;
     cin >> fileName;
@@ -90,6 +91,7 @@ void UploadCommandClient::execute() {
         return;
     }
     uploadCls(c);
+    str = m_dio->read();
     cout << m_dio->read() << endl;
 }
 
