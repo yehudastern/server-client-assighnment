@@ -56,9 +56,9 @@ string ServerClass::server_recv() {
         stopThreads = true;
         close(m_client_sock);
         //terminate();
-        while (true) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        }
+//        while (true) {
+//            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+//        }
         string s = "closed";
         return s;
     } else if (read_bytes < 0) {

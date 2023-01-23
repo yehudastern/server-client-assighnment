@@ -41,19 +41,18 @@ int checkPort(char* portInput) {
 void threadFunc(std::reference_wrapper<ServerClass> server) {
     SocketIO* sio_ptr = new SocketIO(&server.get());
     unique_ptr<Cli> cli_ptr (new Cli(sio_ptr));
-    cli_ptr->start();
+    try {
+        cli_ptr->start();
+    } catch (...) {
+
+    }
     close(server.get().getClientSock());
 }
 void manageTreads(std::reference_wrapper<vector<std::thread>> tv) {
-    while (true) {
-        if (stopThreads) {
-            cout << "here" << endl;
-            tv.get().front().join();
-            cout << "joined" << endl;
-            tv.get().erase(tv.get().begin());
-            stopThreads = false;
-        }
-    }
+    tv.get().front().join();
+    cout << "joined" << endl;
+    tv.get().erase(tv.get().begin());
+    stopThreads = false;
 }
 
 int main(int argc, char *argv[]) {
@@ -69,10 +68,11 @@ int main(int argc, char *argv[]) {
     // initialize server with the fike and port
     ServerClass server(port);
     vector<std::thread> tv;
-    std::thread manage(manageTreads, std::ref(tv));
+    vector<std::thread> mv;
     // connect to client in loop
     while (true) {
         server.server_accept();
         tv.emplace_back(threadFunc, std::ref(server));
+        mv.emplace_back(manageTreads, std::ref(tv));
     }
 }
