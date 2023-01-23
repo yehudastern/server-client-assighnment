@@ -42,6 +42,7 @@ void UploadCommandClient::uploadCls(char* fileName) {
             // a vector of doubles
             //char *c = const_cast<char *>(line.c_str());
             m_dio->write(line);
+            m_dio->read();
         }
         lock.unlock();
     }

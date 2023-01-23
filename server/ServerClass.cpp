@@ -54,8 +54,10 @@ string ServerClass::server_recv() {
     if (read_bytes == 0) {
         cout << "closing client socket!" << endl;
         stopThreads = true;
+        close(m_client_sock);
+        //terminate();
         while (true) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
         string s = "closed";
         return s;

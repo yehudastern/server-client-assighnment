@@ -21,6 +21,7 @@ int UploadCommand::getTrainData() {
         if (isDone)
             break;
         string getLines = m_dio->read();
+        m_dio->write("success");
         string::size_type index = 0;
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
             return 0;
@@ -64,14 +65,6 @@ int UploadCommand::getTrainData() {
             }
             // we take the double vector and the string in the end make a tuple from them and push them
             vecs.emplace_back(vec, tag);
-            if (vec.size() != 16) {
-                for (double d: vec) {
-                    cout << d << " ";
-                }
-                cout << "short: "<< endl;
-                cout << "line: "<< line << endl;
-                cout << "getLines: " <<getLines << endl;
-            }
         }
     }   
     m_data->setClassified(vecs);
@@ -88,6 +81,7 @@ int UploadCommand::getTestData() {
         if (isDone)
             break;
         string getLines = m_dio->read();
+        m_dio->write("success");
         string::size_type index = 0;
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
             return 0;

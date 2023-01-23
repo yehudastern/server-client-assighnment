@@ -47,7 +47,9 @@ void threadFunc(std::reference_wrapper<ServerClass> server) {
 void manageTreads(std::reference_wrapper<vector<std::thread>> tv) {
     while (true) {
         if (stopThreads) {
+            cout << "here" << endl;
             tv.get().front().join();
+            cout << "joined" << endl;
             tv.get().erase(tv.get().begin());
             stopThreads = false;
         }
