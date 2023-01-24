@@ -19,7 +19,7 @@ lets go over what we added and changed.
 - server.cpp : runs the server, starts new threads for each client, each thread starts cli of each own.
 - server class - mainly the same only now gets a cli socket number to send messages to and get messages from.
 - socket io inherits default io, connects between the socket and some other side. has read, write and close socket.
-## the server's side:
+## the clients's side:
 
 
 
