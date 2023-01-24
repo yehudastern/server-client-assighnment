@@ -10,18 +10,21 @@ void ClientClass::checkIp(const char* ip) {
     int flag = 0;
     int count = 0;
     while (iss >> num) {
+        // Checks that the numbers are indeed numbers
         for (char c : num) {
             if(!isdigit(c)) {
                 cout << "Wrong IP argument! please try again :)" << endl;
                 exit(1);
             }
         }
+        // Checks that the numbers are in the range between 0 and 256
         int number = stoi(num);
         if (number < 0 || number > 256) {
             flag = 1;
         }
         count++;
     }
+    // Checks that there are only four numbers
     if (count != 4 || flag) {
         cout << "Wrong IP argument! please try again :)" << endl;
         exit(1);
@@ -72,18 +75,9 @@ void ClientClass::connect() {
     }
 }
 void ClientClass::sendMessage(string message) {
-    // sends the message
-//    for (const char* p = message.c_str(); *p != '\0'; ++p) {
-//        char c = *p;
-//        bool isNumber = c >= '0' && c <= '9';
-//        bool isLetter = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-//        if (!(isLetter || isNumber || c == '.' || c == ' ' || c == '\n'))
-//            cout << c << " ";
-//    }
-//    cout << message.c_str();
     int sent_bytes = send(m_sock, message.c_str(), message.size(), 0);
     if (sent_bytes < 0) {
-        m_error = "sending error"; // error
+        m_error = "sending error";
         sendError();
     }
 }
