@@ -51,7 +51,7 @@ void threadFunc(std::reference_wrapper<ServerClass> server) {
 void manageTreads(std::reference_wrapper<std::thread> t) {
     try {
         t.get().join();
-        cout << "joined" << endl;
+        //cout << "joined" << endl;
         stopThreads = false;
     }
     catch (...) {
