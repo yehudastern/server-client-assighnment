@@ -54,13 +54,16 @@ void UploadCommandClient::uploadCls(char* fileName) {
 }
 
 int fileWorks(char* fileName) {
+    std::unique_lock<std::mutex> lock(mtx);
     ifstream file(fileName);
     if (file.is_open()) {
         file.close();
+        lock.unlock();
         return 1;
     } else {
         // exit the program
         cout << "Invalid input!" << endl;
+        lock.unlock();
         return 0;
     }
 }
