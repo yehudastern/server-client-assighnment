@@ -12,16 +12,28 @@ lets go over what we added and changed.
 ## the server's side:
 - cli: cli communicates with the client and starts the commands to do the requests of the client.
 - inteface command: the interface to all the different commands, it has a execute method that excecutes the command.
-- upload command:, gets the data from the client and saves it and process it to vectors.
-- REST OF THE COMMANDS HERE YEHUDA!!!!!!!!!!
+- upload command: gets the data from the client and saves it and process it to vectors.
+- setting algorithm command: set k and distance for the knn algorithm, checks that they vaild.
+- classified command: classify all the vector from unclassified file, and save thier tag with the approriate vector.
+- display command: Sending all the tags of the unclassified vector to client for printing.
+- download command: Sending all the tags of the unclassified vector to client for put thier in file.
 - DefaultIO: defines an interface for io that the cli uses.
 - ManageData: this class stores the data the different commands use. it has the classified vector with the tags and the unclassified vector without the tags, also it has the distance method and the k. it lies in cli.
 - server.cpp : runs the server, starts new threads for each client, each thread starts cli of each own.
 - server class - mainly the same only now gets a cli socket number to send messages to and get messages from.
-- socket io inherits default io, connects between the socket and some other side. has read, write and close socket.
+- socket io: inherits default io, connects between the socket and some other side. has read, write and close socket.
 ## the clients's side:
-
-
+- cli: cli communicates with the server and starts the commands to oprate the server.
+- inteface command: the interface to all the different commands, it has a execute method that excecutes the command.
+- upload command: used to upload a dataset to the K-nearest neighbors (KNN) algorithm. performance check to the path.
+- setting algorithm command: get from the user input for k and distance to knn algorithm, and send them to the server
+- classified command: oprate the server to classify all the vector from unclassified file.
+- display command: get all the tagged that classified from server and print them to the screen.
+- download command: get all the tagged that classified from server and write them to the file.
+- DefaultIO: defines an interface for io that the cli uses.
+- client.cpp : runs the client, creat a client and connect to server, and strat cli to oprate knn algorithm option.
+- client class - mainly the same only now gets a server socket number to send messages to and get messages from.
+- socket io: inherits default io, connects between the socket and some other side. has read, write and close socket.
 
 # Milestone 2
 
