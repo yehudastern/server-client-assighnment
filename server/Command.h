@@ -21,7 +21,7 @@ public:
     virtual ~Command();
 };
 
-Eclass UploadCommand : public Command {
+class UploadCommand : public Command {
     private:
     // gets the data lines to a vector and saves it manage vector (classified)
     int getTrainData();
