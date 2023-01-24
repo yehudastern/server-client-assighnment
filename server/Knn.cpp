@@ -31,10 +31,8 @@ vector<pair<double,string>> Knn::getDisAndStr(const vector<double>& input){
     for(const auto& vector: m_inputVec) {
         // check the unclassified vector have a same size to the classified vector,  if not send a error massage
         if (vector.first.size() != input.size()) {
-            for(int i = 0; i < input.size();i++) {
-                m_flag = 0;
-                break;
-            }
+             m_flag = 0;
+             break;
         }
         vec.emplace_back(m_distance->getDistance(vector.first, input),vector.second);
     }
