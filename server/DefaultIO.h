@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-// defines an interface for io that the socket uses
+// defines an interface for io that the cli uses
 class DefaultIO {
 public:
     // reads something and returns it
