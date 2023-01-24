@@ -34,6 +34,7 @@ Eclass UploadCommand : public Command {
     void execute();
 };
 
+// set the k and distance for knn algorithm
 class AlgorithmSettingCommand : public Command {
     public:
     int initDis(string);
@@ -42,18 +43,21 @@ class AlgorithmSettingCommand : public Command {
     void execute();
 };
 
+// classified all the unclassified vector and update thier tag
 class ClassifyCommand : public Command {
     public:
     ClassifyCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
+// send all the tag from unclassified vector to the client
 class DisplayCommand : public Command {
     public:
     DisplayCommand(ManageData* , DefaultIO*);
     void execute();
 };
 
+// send all the tag from unclassified vector to the client
 class DownloadCommand : public Command {
     public:
     DownloadCommand(ManageData* , DefaultIO*);
