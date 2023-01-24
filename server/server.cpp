@@ -45,6 +45,7 @@ void manageTreads(std::reference_wrapper<std::thread> t) {
     }
 }
 
+//runs the server, starts new threads for each client, each thread starts cli of each own.
 int main(int argc, char *argv[]) {
     // check that we recieve all the necessary arguments
     if (argc != 2){
