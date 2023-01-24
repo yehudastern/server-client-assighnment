@@ -44,13 +44,13 @@ void UploadCommandClient::uploadCls(char* fileName) {
             m_dio->write(line);
             m_dio->read();
         }
-        lock.unlock();
     }
     string line = "end";
     //char *c = const_cast<char *>(line.c_str());
     m_dio->write(line);
     // close the file
     file.close();
+    lock.unlock();
 }
 
 int fileWorks(char* fileName) {
