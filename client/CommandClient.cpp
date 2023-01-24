@@ -66,7 +66,7 @@ int fileWorks(char* fileName) {
         return 1;
     } else {
         // exit the program
-        //cout << "Invalid input!" << endl;
+        cout << "Invalid input!" << endl;
         lock.unlock();
         //cout << "mut unlock2" << endl;
         return 0;
@@ -117,6 +117,17 @@ void AlgorithmSettingCommandClient::execute() {
         m_dio->write(input);
     }
     string massege = m_dio->read();
+    if(massege.find("invalid value for K", 0) != string::npos) {
+        cout << "invalid value for K" << endl;
+        if(massege.find("invalid value for metric", 0) != string::npos) {
+            cout << "invalid value for metric" << endl;
+        }
+        return;
+    }
+    if(massege.find("invalid value for metric", 0) != string::npos){
+        cout << "invalid value for metric" << endl;
+        return;
+    }
     if(massege != "vaild input") {
         cout << massege << endl;
     }

@@ -37,7 +37,7 @@ int AlgorithmSettingCommand::initK(string num) {
 
 void AlgorithmSettingCommand::execute() {
     string s = string("The current KNN parameters are: K = ") + to_string(m_data->getK()) +
-    string(", distance metric = ") + m_data->getDisString(); 
+               string(", distance metric = ") + m_data->getDisString();
     m_dio->write(s);
     string line = m_dio->read();
     if(line == string("save the current parameters")) {
@@ -52,7 +52,7 @@ void AlgorithmSettingCommand::execute() {
     iss >> k;
     iss >> dis;
     if (iss >> fail) {
-        m_dio->write(string("more argument insert\n"));
+        m_dio->write(string("too many arguments inserted"));
     } else if (!k.empty() && !dis.empty()) {
         if((initK(k) || initK(dis)) && (initDis(dis) || initDis(k))) {
             if (initK(k)) {
@@ -69,14 +69,14 @@ void AlgorithmSettingCommand::execute() {
         }
         string msg;
         if (!(initK(k) || initK(dis))) {
-            msg = string("invalid value for K\n");
+            msg = string("invalid value for K");
         }
         if (!(initDis(dis) || initDis(k))) {
-            msg += string("invalid value for metric\n");
+            msg += string("invalid value for metric");
         }
         m_dio->write(msg);
     } else {
-        m_dio->write(string("few argument insert\n"));
+        m_dio->write(string("few argument insert"));
     }
 }
  //iris_classified.csv

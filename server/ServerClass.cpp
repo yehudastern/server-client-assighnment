@@ -64,7 +64,7 @@ string ServerClass::server_recv(int cliIp) {
         string s = "closed";
         return s;
     } else if (read_bytes < 0) {
-        cout << "error of recv!" << endl;
+        sendError("error of recv!", cliIp);
         string s = "error";
         return s;
     } else {

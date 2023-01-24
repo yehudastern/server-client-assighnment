@@ -83,6 +83,7 @@ int UploadCommand::getTestData() {
         string getLines = m_dio->read();
         string::size_type index = 0;
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
+            cout << "invalid file input" << endl;
             return 0;
         }
         m_dio->write("success");

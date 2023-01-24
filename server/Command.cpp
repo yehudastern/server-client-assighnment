@@ -12,13 +12,13 @@ ClassifyCommand::ClassifyCommand(ManageData* data, DefaultIO* dio) {
 }
 
 void ClassifyCommand::execute() {
+    if (m_data->getClassified().empty()) {
+        m_dio->write("please upload data");
+        return;
+    }
     if(m_data->getK() > m_data->getClassified().size()){
         m_dio->write("please replace k or file");
         return;
-    }
-    if (m_data->getClassified().empty()) {
-        m_dio->write("please upload data"); 
-        return;  
     }
     Knn myKnn = Knn(m_data->getClassified(),  m_data->getK(), m_data->getDistance());
     vector<pair<vector<double>,string>> vec;
@@ -28,7 +28,7 @@ void ClassifyCommand::execute() {
        tag = myKnn.getTag(i.first);
        if (myKnn.getFlag() == 0) {
            // cout << test << endl;
-           m_dio->write("invalid classified");
+           m_dio->write("invalid classified, please upload appropriate files");
            return;
        }
        vec.push_back(make_pair(i.first, tag));
