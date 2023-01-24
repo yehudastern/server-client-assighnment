@@ -1,5 +1,28 @@
  An assignment for the class advanced programming 1 by etgar and yehuda
 
+# Milestone 3
+
+in this assignment we made the server use threads for each client, added an interface for a client to get requesets to give train data and get train data classified.
+the option are to upload the train and test data, set k and distance method, classify the data, print the results or store them in a file with a chosen path.
+
+compile is the same as previous milestone. the difference is in running, now server doesnt that a file in the command line - ./server.out port.
+
+lets go over what we added and changed.
+
+## the server's side:
+- cli: cli communicates with the client and starts the commands to do the requests of the client.
+- inteface command: the interface to all the different commands, it has a execute method that excecutes the command.
+- upload command:, gets the data from the client and saves it and process it to vectors.
+- REST OF THE COMMANDS HERE YEHUDA!!!!!!!!!!
+- DefaultIO: defines an interface for io that the cli uses.
+- ManageData: this class stores the data the different commands use. it has the classified vector with the tags and the unclassified vector without the tags, also it has the distance method and the k. it lies in cli.
+- server.cpp : runs the server, starts new threads for each client, each thread starts cli of each own.
+- server class - mainly the same only now gets a cli socket number to send messages to and get messages from.
+- socket io inherits default io, connects between the socket and some other side. has read, write and close socket.
+## the server's side:
+
+
+
 # Milestone 2
 
 In this milestone we essentionally made a server and a client. The client connects to the server (using tcl protocol). Send the server a vector a distance method and a number in this form:
