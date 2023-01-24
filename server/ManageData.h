@@ -8,6 +8,12 @@
 #include "IDistance.hpp"
 #include "DistanceFactory.hpp"
 
+/*
+ * this class stores the data the different commands use.
+ * it has the classified vector with the tags and the unclassified vector
+ * without the tags, also it has the distance method and the k.
+ * it lies in cli
+ */
 class ManageData {
 private:
     // saves the vector of the classified data

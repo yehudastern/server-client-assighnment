@@ -4,7 +4,9 @@
 
 using namespace std; 
 
-// the cli class has the manage data, the commands and wor
+/*
+ * cli communicates with the client and starts the commands to do the requests of the client
+ */
 class Cli {
 private:
     DefaultIO* m_dio;
