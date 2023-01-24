@@ -3,7 +3,6 @@
 #include <netinet/in.h>
 #include <string.h>
 #include "ServerClass.hpp"
-#include <chrono>
 #include <thread>
 
 using namespace std;
@@ -17,7 +16,7 @@ ServerClass::ServerClass(int port) {
     //m_input = new GetInput(fileName);
     m_server_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (m_server_sock < 0) {
-        sendError("error creating socket");
+        cout << "error creating socket" << endl;
     }
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -25,7 +24,7 @@ ServerClass::ServerClass(int port) {
     sin.sin_addr.s_addr = INADDR_ANY;
     sin.sin_port = htons(m_server_port);
     if (bind(m_server_sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        sendError("error binding socket");
+        cout << "error binding socket" << endl;
         exit(1);
     }
 }
@@ -33,28 +32,30 @@ ServerClass::ServerClass(int port) {
 // creat connection with specific client
 void ServerClass::server_accept() {
     if (listen(m_server_sock, 10) < 0) {
-        sendError("error listening to a socket");
+        cout << "error listening to a socket";
+        return;
     }
     struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     m_client_sock = accept(m_server_sock, (struct sockaddr *) &client_sin, &addr_len);
     if (m_client_sock < 0) {
-        sendError("error accepting client");
+        cout << "error accepting client";
+        return;
     }
 }
 
 // get data from the client
-string ServerClass::server_recv() {
+string ServerClass::server_recv(int cliIp) {
     char buffer[4096];
     memset(buffer, 0, sizeof(buffer));
     int expected_data_len = sizeof(buffer);
-    int read_bytes = recv(m_client_sock, buffer, expected_data_len, 0); 
+    int read_bytes = recv(cliIp, buffer, expected_data_len, 0);
     string s = string(buffer);
     // check validiation of the data
     if (read_bytes == 0) {
         cout << "closing client socket!" << endl;
         stopThreads = true;
-        close(m_client_sock);
+        close(cliIp);
         //terminate();
 //        while (true) {
 //            std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -67,16 +68,16 @@ string ServerClass::server_recv() {
         return s;
     } else {
         if (s.back() != '\n') {
-            s += server_recv();
+            s += server_recv(cliIp);
         }
         return s;
     }
 }
 
-void ServerClass::server_send(string str) {
-    int sent_bytes = send(m_client_sock, str.c_str(), str.size(), 0);
+void ServerClass::server_send(string str, int cliIp) {
+    int sent_bytes = send(cliIp, str.c_str(), str.size(), 0);
     if (sent_bytes < 0) {
-        sendError("error sending to client");
+        sendError("error sending to client", cliIp);
     }
 }
 
@@ -84,11 +85,11 @@ int ServerClass::getClientSock(){
     return m_client_sock;
 }
 
-void ServerClass::sendError(string error) {
+void ServerClass::sendError(string error, int cliIp) {
     // if there's an error closes the socket and leaves
     if (!error.empty()) {
         cout << error << endl;
-        close(m_client_sock);
+        close(cliIp);
         exit(1);
     }
 }

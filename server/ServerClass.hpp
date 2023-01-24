@@ -23,10 +23,10 @@ private:
 public:
     ServerClass(int port);
     void server_accept(); 
-    string server_recv();
-    void server_send(string);
+    string server_recv(int);
+    void server_send(string, int);
     int getClientSock();
-    void sendError(string error);
+    void sendError(string, int);
 };
 
 #endif //SERVER_H

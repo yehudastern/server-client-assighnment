@@ -38,8 +38,8 @@ int checkPort(char* portInput) {
     return port;
 }
 
-void threadFunc(std::reference_wrapper<ServerClass> server) {
-    SocketIO* sio_ptr = new SocketIO(&server.get());
+void threadFunc(std::reference_wrapper<ServerClass> server, int clientIp) {
+    SocketIO* sio_ptr = new SocketIO(&server.get(), clientIp);
     unique_ptr<Cli> cli_ptr (new Cli(sio_ptr));
     try {
         cli_ptr->start();
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
     // connect to client in loop
     while (true) {
         server.server_accept();
-        tv.emplace_back(threadFunc, std::ref(server));
+        tv.emplace_back(threadFunc, std::ref(server), server.getClientSock());
         mv.emplace_back(manageTreads, std::ref(tv.back()));
     }
 }

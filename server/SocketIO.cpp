@@ -1,13 +1,14 @@
 #include <sstream>
 #include "SocketIO.h"
 
-SocketIO::SocketIO (ServerClass* server) {
+SocketIO::SocketIO (ServerClass* server, int ip) {
     m_server = server;
+    m_client_ip = ip;
 }
 
 string SocketIO::read() {
     if (m_v.empty()) {    
-        string getLines = m_server->server_recv();
+        string getLines = m_server->server_recv(m_client_ip);
         istringstream iss(getLines);
         string line;
         while (getline(iss, line)) {
@@ -23,5 +24,5 @@ string SocketIO::read() {
 }
 
 void SocketIO::write(string data) {
-    m_server->server_send(data += "\n");
+    m_server->server_send(data += "\n", m_client_ip);
 }

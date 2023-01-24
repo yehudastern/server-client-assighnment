@@ -28,6 +28,7 @@ DownloadCommandClient::DownloadCommandClient(DefaultIOCli* dio){
 
 void UploadCommandClient::uploadCls(char* fileName) {
     std::unique_lock<std::mutex> lock(mtx);
+    //cout << "mut lock1" << endl;
     ifstream file(fileName);
     // while the file is open
     if (file.is_open()) {
@@ -44,26 +45,30 @@ void UploadCommandClient::uploadCls(char* fileName) {
             m_dio->write(line);
             m_dio->read();
         }
+        file.close();
     }
+    lock.unlock();
+    //cout << "mut unlock1" << endl;
     string line = "end";
     //char *c = const_cast<char *>(line.c_str());
     m_dio->write(line);
     // close the file
-    file.close();
-    lock.unlock();
 }
 
 int fileWorks(char* fileName) {
     std::unique_lock<std::mutex> lock(mtx);
+    //cout << "mut lock2" << endl;
     ifstream file(fileName);
     if (file.is_open()) {
         file.close();
         lock.unlock();
+        //cout << "mut unlock2" << endl;
         return 1;
     } else {
         // exit the program
-        cout << "Invalid input!" << endl;
+        //cout << "Invalid input!" << endl;
         lock.unlock();
+        //cout << "mut unlock2" << endl;
         return 0;
     }
 }
@@ -164,12 +169,16 @@ void DownloadCommandClient::execute() {
             break;
         }
     }
+    unique_lock<std::mutex> lock(mtx);
+    //cout << "mut lock3" << endl;
     file.open(dataFile + "/Labeling.txt");
     if (!file.is_open()) {
         cout << "invalid pass" << endl;
         return;
     }
     file.close();
+    lock.unlock();
+    //cout << "mut unlock3" << endl;
     thread thread(&DownloadCommandClient::writeToFile, this, dataFile + string("/Labeling.txt"), tagForFile);
     thread.detach();     
 }
@@ -177,6 +186,7 @@ void DownloadCommandClient::execute() {
 void DownloadCommandClient::writeToFile(const std::string& filePass, const std::string& tagForFile) {
     std::ofstream file;
     unique_lock<std::mutex> lock(mtx);
+    //cout << "mut lock4" << endl;
     file.open(filePass);
     int numLine = 1;
     string tagLine;
@@ -190,4 +200,5 @@ void DownloadCommandClient::writeToFile(const std::string& filePass, const std::
     }
     file.close();
     lock.unlock();
+    //cout << "mut unlock4" << endl;
 }

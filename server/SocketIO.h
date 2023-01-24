@@ -17,8 +17,9 @@ class SocketIO: public DefaultIO{
 private:
     ServerClass* m_server;
     list<string> m_v;
+    int m_client_ip;
 public:
-    SocketIO(ServerClass*);
+    SocketIO(ServerClass*, int);
     virtual std::string read();
     virtual void write(std::string);
 };
