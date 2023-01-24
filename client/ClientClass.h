@@ -34,6 +34,7 @@ public:
     string receiveMessage();
     // checks if there's an error and if so prints it and exit
     void sendError();
+    // close the connection with the server
     void closeConnection();
     // checking the port number is correct
     int checkPort(char *port_num);
