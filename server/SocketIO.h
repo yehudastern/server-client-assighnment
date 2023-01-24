@@ -22,6 +22,7 @@ public:
     SocketIO(ServerClass*, int);
     virtual std::string read();
     virtual void write(std::string);
+    virtual void closeThread();
 };
 
 

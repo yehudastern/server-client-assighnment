@@ -8,6 +8,7 @@ class DefaultIO {
 public:
     virtual std::string read() = 0;
     virtual void write(std::string) = 0;
+    virtual void closeThread() = 0;
 };
 
 

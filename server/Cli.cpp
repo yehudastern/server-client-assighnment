@@ -27,6 +27,7 @@ void Cli::start() {
         if (num <= 5) {
             m_commands[num-1]->execute();
         } else if (num == 8) {
+            m_dio->closeThread();
             return;
         }
     }

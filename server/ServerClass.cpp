@@ -17,6 +17,7 @@ ServerClass::ServerClass(int port) {
     m_server_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (m_server_sock < 0) {
         cout << "error creating socket" << endl;
+        exit(1);
     }
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -89,7 +90,7 @@ void ServerClass::sendError(string error, int cliIp) {
     // if there's an error closes the socket and leaves
     if (!error.empty()) {
         cout << error << endl;
+        stopThreads = true;
         close(cliIp);
-        exit(1);
     }
 }

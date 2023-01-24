@@ -1,5 +1,6 @@
 #include <sstream>
 #include "SocketIO.h"
+extern std::atomic<bool> stopThreads;
 
 SocketIO::SocketIO (ServerClass* server, int ip) {
     m_server = server;
@@ -21,6 +22,11 @@ string SocketIO::read() {
     string save = m_v.front();
     m_v.erase(m_v.begin());
     return save;
+}
+
+void SocketIO::closeThread() {
+    stopThreads = true;
+    close(m_client_ip);
 }
 
 void SocketIO::write(string data) {
