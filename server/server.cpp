@@ -48,11 +48,15 @@ void threadFunc(std::reference_wrapper<ServerClass> server) {
     }
     close(server.get().getClientSock());
 }
-void manageTreads(std::reference_wrapper<vector<std::thread>> tv) {
-    tv.get().front().join();
-    cout << "joined" << endl;
-    tv.get().erase(tv.get().begin());
-    stopThreads = false;
+void manageTreads(std::reference_wrapper<std::thread> t) {
+    try {
+        t.get().join();
+        cout << "joined" << endl;
+        stopThreads = false;
+    }
+    catch (...) {
+
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -73,6 +77,6 @@ int main(int argc, char *argv[]) {
     while (true) {
         server.server_accept();
         tv.emplace_back(threadFunc, std::ref(server));
-        mv.emplace_back(manageTreads, std::ref(tv));
+        mv.emplace_back(manageTreads, std::ref(tv.back()));
     }
 }
