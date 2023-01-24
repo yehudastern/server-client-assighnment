@@ -28,24 +28,14 @@ int Knn::getFlag() {
  */
 vector<pair<double,string>> Knn::getDisAndStr(const vector<double>& input){
     vector<pair<double,string>> vec;
-    int i = 1;
     for(const auto& vector: m_inputVec) {
+        // check the unclassified vector have a same size to the classified vector,  if not send a error massage
         if (vector.first.size() != input.size()) {
-            for(int i = 0; i < vector.first.size();i++) {
-                cout<< vector.first.at(i) << " ";
-            }
-            cout << endl;
-            
             for(int i = 0; i < input.size();i++) {
-                cout<< input.at(i) << " ";
+                m_flag = 0;
+                break;
             }
-            cout << endl;
-            cout << "size classify: " << vector.first.size() << "size unclassify: " << input.size();
-            cout << "line " << i << endl;
-            m_flag = 0;
-            break; 
         }
-        i++;
         vec.emplace_back(m_distance->getDistance(vector.first, input),vector.second);
     }
     return vec;

@@ -5,22 +5,7 @@
 #include "SocketIO.h"
 #include "Cli.h"
 
-extern std::atomic<bool> stopThreads;
-
 using namespace std;
-
-// check that file is exist
-void checkFile(char* fileName) {
-    ifstream file(fileName);
-    if (file.is_open()) {
-        file.close();
-        return;
-    } else {
-        // exit the program
-        cout << "wrong file name!" << endl;
-        exit(1);
-    }
-}
 
 // check that the port is valid integer between 1024 - 65536
 int checkPort(char* portInput) {
@@ -30,7 +15,7 @@ int checkPort(char* portInput) {
              cout << "The port is not valid" << endl;
              exit(1);
         }
-    }
+    } // if the port is not valid leaves
     if (port < 1024 || port > 65536) {
         cout << " The port is not valid" << endl;
         exit(1);
@@ -38,6 +23,7 @@ int checkPort(char* portInput) {
     return port;
 }
 
+// the thread function that gets the server starts socket io and server cli and starts cli
 void threadFunc(std::reference_wrapper<ServerClass> server, int clientIp) {
     SocketIO* sio_ptr = new SocketIO(&server.get(), clientIp);
     unique_ptr<Cli> cli_ptr (new Cli(sio_ptr));
@@ -48,11 +34,11 @@ void threadFunc(std::reference_wrapper<ServerClass> server, int clientIp) {
     }
     close(server.get().getClientSock());
 }
+
+// this is opened for every thread and waits to join them
 void manageTreads(std::reference_wrapper<std::thread> t) {
     try {
         t.get().join();
-        //cout << "joined" << endl;
-        stopThreads = false;
     }
     catch (...) {
 
@@ -65,17 +51,19 @@ int main(int argc, char *argv[]) {
         cout << "please run again with an appropriate number of arguments (./server.out port)" << endl;
         exit(1);
     }
-    //string fileName = argv[1];
-    // check validation of the port and file.
-    //checkFile(argv[1]);
+    // checks if the port is correct
     int port = checkPort(argv[1]);
-    // initialize server with the fike and port
+    // initialize server with the port number
     ServerClass server(port);
+    // holds the threads
     vector<std::thread> tv;
+    // holds the thread managers that wait to join
     vector<std::thread> mv;
     // connect to client in loop
     while (true) {
+        // accepts a client
         server.server_accept();
+        // starts the thread and the manage thread vector
         tv.emplace_back(threadFunc, std::ref(server), server.getClientSock());
         mv.emplace_back(manageTreads, std::ref(tv.back()));
     }

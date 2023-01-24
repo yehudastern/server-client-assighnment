@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 
+
 UploadCommand::UploadCommand(ManageData* data, DefaultIO* dio) {
     m_description = "1. upload an unclassified csv data file";
     m_data = data;
@@ -12,26 +13,33 @@ UploadCommand::UploadCommand(ManageData* data, DefaultIO* dio) {
 }
 
 int UploadCommand::getTrainData() {
+    // start the vector
     vector<pair<vector<double>, string>> vecs;
+    // if we get done, is done is true and we leave
     bool isDone = false;
+    // used to see if we get invalid file input in the start to leave than
     bool start = true;
-    // Opening the file in read only mode
-    // while the file is open
+    // keeps reading and processing going until we get done
     while(true) {
+        // if were done leaves
         if (isDone)
             break;
+        // start reading lines
         string getLines = m_dio->read();
         string::size_type index = 0;
+        // if we get invalid file input we leave
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
             return 0;
-        }
+        }// writes to fix the bad input issue
         m_dio->write("success");
         start = false;
         string line;
         std::istringstream ss(getLines);
+        //goes over each line and process it into a vector
         while (getline(ss, line)) {
             // making a string stream in order to saparate the spaces
             index = 0;
+            // if we get end we leave
             if (line.find("end", index) != string::npos) {
                 isDone = true;
                 break;
@@ -66,33 +74,40 @@ int UploadCommand::getTrainData() {
             // we take the double vector and the string in the end make a tuple from them and push them
             vecs.emplace_back(vec, tag);
         }
-    }   
+    }
+    // sets the data for the other commands
     m_data->setClassified(vecs);
     return 1;
 }
 
 int UploadCommand::getTestData() {
+    // start the vector
     vector<pair<vector<double>, string>> vecs;
+    // if we get done, is done is true and we leave
     bool isDone = false;
+    // used to see if we get invalid file input in the start to leave than
     bool start = true;
-    // Opening the file in read only mode
-    // while the file is open
+    // keeps reading and processing going until we get done
     while(true) {
+        // if were done leaves
         if (isDone)
             break;
+        // start reading lines
         string getLines = m_dio->read();
         string::size_type index = 0;
+        // if we get invalid file input we leave
         if (start && (getLines.find("invalid file input", index) != string::npos)) {
-            cout << "invalid file input" << endl;
             return 0;
-        }
+        }// writes to fix the bad input issue
         m_dio->write("success");
         start = false;
         string line;
         std::istringstream ss(getLines);
+        //goes over each line and process it into a vector
         while (getline(ss, line)) {
             // making a string stream in order to saparate the spaces
             index = 0;
+            // if we get end we leave
             if (line.find("end", index) != string::npos) {
                 isDone = true;
                 break;
@@ -124,26 +139,10 @@ int UploadCommand::getTestData() {
                         tag += y;
                 }
             }
-            if (vec.size() != 16) {
-                for (double d: vec) {
-                    cout << d << " ";
-                }
-                cout << endl;
-                cout << line << endl;
-            }
             // we take the double vector and the string in the end make a tuple from them and push them
             vecs.push_back(make_pair(vec, tag));
         }
     }
-    // int i =1;
-    // for (auto &v: vecs) {
-    //     cout << i;
-    //     i++;
-    //     for(auto &ve: v.first) {
-    //             cout << "    " << ve << " ";
-    //     }
-    //     cout << endl;
-    // }
     m_data->setUnclassified(vecs);
     return 1;
 }

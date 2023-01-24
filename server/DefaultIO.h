@@ -4,11 +4,13 @@
 #include <iostream>
 using namespace std;
 
+// defines an interface for io that the socket uses
 class DefaultIO {
 public:
+    // reads something and returns it
     virtual std::string read() = 0;
     virtual void write(std::string) = 0;
-    virtual void closeThread() = 0;
+    virtual void closeSocket() = 0;
 };
 
 
