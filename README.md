@@ -5,7 +5,7 @@
 in this assignment we made the server use threads for each client, added an interface for a client to get requesets to give train data and get train data classified.
 the option are to upload the train and test data, set k and distance method, classify the data, print the results or store them in a file with a chosen path.
 
-compile is the same as previous milestone. the difference is in running, now server doesnt that a file in the command line - ./server.out port.
+compile is the same as previous milestone. the difference is in running, now server.out doesnt get a file in the command line - ./server.out port.
 
 lets go over what we added and changed.
 
